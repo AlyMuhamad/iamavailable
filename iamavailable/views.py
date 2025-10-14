@@ -10,6 +10,8 @@ def index(request):
         'jobs': jobs,
     }
 
+    print(jobs)
+
     return render(request, 'iamavailable/index.html', context)
 
 def job_detail(request, pk):

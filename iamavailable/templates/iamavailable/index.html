@@ -1,23 +1,25 @@
 {% extends 'iamavailable/_base.html' %}
 <html>
   <body>
-    {% block content %} {% if jobs %}
-    <ul class="container list-unstyled">
-      {% for job in jobs %}
-      <li class="shadow-sm p-3 mb-5 bg-white rounded">
-        <a
-          href="{% url 'job_detail' job.pk %}"
-          class="text-decoration-none fw-bold"
-        >
-          <p>{{ job.title }}</p>
-        </a>
-        <p>{{ job.company }}</p>
-        <p>{{ job.description|truncatechars:100 }}</p>
-      </li>
-      {% endfor %}
-    </ul>
-    {% else %}
-    <p>You dont have any favourite movies</p>
-    {% endif %} {% endblock %}
+    <div class="container">
+      {% block content %} {% if jobs %}
+      <ul class="list-unstyled">
+        {% for job in jobs %}
+        <li class="shadow-sm p-3 mb-5 bg-white rounded">
+          <a
+            href="{% url 'job_detail' job.pk %}"
+            class="text-decoration-none fw-bold"
+          >
+            <p>{{ job.title }}</p>
+          </a>
+          <p>{{ job.company }}</p>
+          <p>{{ job.description|truncatechars:100 }}</p>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p>You dont have any favourite movies</p>
+      {% endif %} {% endblock %}
+    </div>
   </body>
 </html>
