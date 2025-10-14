@@ -7,6 +7,7 @@ def index(request):
     context = {
         'jobs': Jobs.objects.all(),
     }
+
     return render(request, 'iamavailable/index.html', context)
 
 def job_detail(request, pk):

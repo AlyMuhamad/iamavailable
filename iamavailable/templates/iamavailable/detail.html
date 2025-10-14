@@ -2,11 +2,11 @@
 <html>
   <body>
     {% block content %}
-    <div>
-      <p>{{ job.title }}</p>
+    <div class="container">
+      <p class="fw-bold">{{ job.title }}</p>
       <p>{{ job.company }}</p>
-      <p>{{ job.description }}</p>
       <p>{{ job.salary }}</p>
+      <p>{{ job.description }}</p>
     </div>
     {% endblock %}
   </body>
