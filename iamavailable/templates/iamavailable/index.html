@@ -1,0 +1,18 @@
+{% extends 'iamavailable/_base.html' %}
+
+<html>
+  <body>
+    {% block content %}
+    <h1>My first name is {{first_name}}</h1>
+    <h1>My last name is {{last_name}}</h1>
+    {% if movies %}
+    <ul>
+      {% for movie in movies %}
+      <li>{{ movie|title }}</li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>You dont have any favourite movies</p>
+    {% endif %} {% endblock %}
+  </body>
+</html>

@@ -1,0 +1,14 @@
+{% extends 'iamavailable/_base.html' %}
+
+<html>
+  <body>
+    {% block content %}
+    <h1>This is a page about me</h1>
+    {% load static %}
+    <img
+      src="{% static 'iamavailable/illustration-anti-spam.png' %}"
+      alt="illustation"
+    />
+    {% endblock %}
+  </body>
+</html>
