@@ -3,12 +3,15 @@
 <html>
   <body>
     {% block content %}
-    <h1>This is a page about me</h1>
-    {% load static %}
-    <img
-      src="{% static 'iamavailable/illustration-anti-spam.png' %}"
-      alt="illustation"
-    />
+    <div class="container">
+      <p>This is a page about me</p>
+      {% load static %} {% comment %}
+      <img
+        src="{% static 'iamavailable/illustration-anti-spam.png' %}"
+        alt="illustation"
+      />
+      {% endcomment %}
+    </div>
     {% endblock %}
   </body>
 </html>

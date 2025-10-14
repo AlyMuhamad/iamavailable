@@ -1,0 +1,13 @@
+{% extends 'iamavailable/_base.html' %}
+<html>
+  <body>
+    {% block content %}
+    <div>
+      <p>{{ job.title }}</p>
+      <p>{{ job.company }}</p>
+      <p>{{ job.description }}</p>
+      <p>{{ job.salary }}</p>
+    </div>
+    {% endblock %}
+  </body>
+</html>

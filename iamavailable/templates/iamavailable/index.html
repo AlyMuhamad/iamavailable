@@ -1,14 +1,19 @@
 {% extends 'iamavailable/_base.html' %}
-
 <html>
   <body>
-    {% block content %}
-    <h1>My first name is {{first_name}}</h1>
-    <h1>My last name is {{last_name}}</h1>
-    {% if movies %}
-    <ul>
-      {% for movie in movies %}
-      <li>{{ movie|title }}</li>
+    {% block content %} {% if jobs %}
+    <ul class="container list-unstyled">
+      {% for job in jobs %}
+      <li class="shadow-sm p-3 mb-5 bg-white rounded">
+        <a
+          href="{% url 'job_detail' job.pk %}"
+          class="text-decoration-none fw-bold"
+        >
+          <p>{{ job.title }}</p>
+        </a>
+        <p>{{ job.company }}</p>
+        <p>{{ job.description|truncatechars:100 }}</p>
+      </li>
       {% endfor %}
     </ul>
     {% else %}

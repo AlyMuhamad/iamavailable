@@ -1,18 +1,20 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, get_object_or_404
+from .models import Jobs
 
 # Create your views here.
 
 def index(request):
     context = {
-        'first_name': 'Aly',
-        'last_name': 'Mohamed',
-        'movies': ['500 days of summer', 'whiplash', 'gladiator']
+        'jobs': Jobs.objects.all(),
     }
-
     return render(request, 'iamavailable/index.html', context)
+
+def job_detail(request, pk):
+    context = {
+        'job': get_object_or_404(Jobs, pk=pk),
+    }
+    return render(request, 'iamavailable/detail.html', context)
+
 
 def about(request):
     return render(request, 'iamavailable/about.html')
-
-def hello(request, first_name):
-    return HttpResponse(f"Hello {first_name}")
