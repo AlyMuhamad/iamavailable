@@ -1,11 +1,13 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Jobs
+from iamavailable.models import Jobs
 
 # Create your views here.
 
 def index(request):
+    jobs = Jobs.objects.all()
+
     context = {
-        'jobs': Jobs.objects.all(),
+        'jobs': jobs,
     }
 
     return render(request, 'iamavailable/index.html', context)
