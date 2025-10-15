@@ -26,9 +26,19 @@
           class="text-decoration-none fw-bold text-dark"
           >IAmAvailable</a
         >
-        <a href=" {% url 'about' %}" class="text-decoration-none text-dark"
-          >About</a
-        >
+        <div class="d-flex gap-3 align-items-center">
+          <a href=" {% url 'about' %}" class="text-decoration-none text-dark"
+            >Contact</a
+          >
+          <a href=" {% url 'about' %}" class="text-decoration-none text-dark"
+            >About</a
+          >
+          <a
+            href=" {% url 'home' %}"
+            class="text-decoration-none text-white bg-dark p-2 rounded"
+            >Signup</a
+          >
+        </div>
       </div>
     </div>
 
