@@ -1,20 +1,72 @@
-{% extends 'iamavailable/_base.html' %}
+{% extends 'iamavailable/_base.html' %} {% load static %}
 <html>
   <body>
     {% block content %}
     <div class="container">
+      <div class="d-flex flex-column align-items-center">
+        <p class="fw-bold fs-1">The 1# job board for developers</p>
+        <p class="text-black-50">
+          Looking for a job? Here you can find the best jobs worldwide
+        </p>
+      </div>
+      <form
+        action=""
+        method="GET"
+        class="d-flex p-3 gap-2 align-items-center justify-content-center mb-4 mt-5 rounded bg-light"
+      >
+        <div class="position-relative">
+          <i
+            class="fa-solid fa-magnifying-glass ms-2 text-black-50 position-absolute top-50 translate-middle-y fs-5"
+          ></i>
+          <input
+            type="text"
+            placeholder="Search for a job"
+            class="rounded p-2 ps-5 border-0"
+          />
+        </div>
+        <div class="position-relative">
+          <i
+            class="fa-solid fa-location-dot fa-solid fa-magnifying-glass ms-2 text-black-50 position-absolute top-50 translate-middle-y fs-5"
+          ></i>
+          <input
+            type="text"
+            placeholder="City or region"
+            class="rounded p-2 ps-5 border-0"
+          />
+        </div>
+        <input
+          type="submit"
+          value="Search"
+          class="border-0 fw-bold p-2 ps-4 pe-4 bg-dark rounded text-white"
+        />
+      </form>
       {% if jobs %}
       <ul class="list-unstyled">
         {% for job in jobs %}
         <li class="shadow-sm p-3 mb-5 bg-white rounded">
           <a
             href="{% url 'job_detail' job.pk %}"
-            class="text-decoration-none fw-bold"
+            class="text-decoration-none fw-bold fs-4"
           >
-            <p>{{ job.title }}</p>
+            {{ job.title }}
           </a>
-          <p>{{ job.company }}</p>
-          <p>{{ job.description|truncatechars:100 }}</p>
+          <div class="d-flex gap-3 align-items-center mb-3">
+            <p class="mb-0 fw-bold">{{ job.company }}</p>
+            <p class="mb-0 fw-bold text-black-50">|</p>
+            <div class="d-flex gap-2 align-items-center">
+              <i
+                class="fa-solid fa-location-dot fa-solid fa-magnifying-glass text-black-50"
+              ></i>
+              {{ job.location }}
+            </div>
+          </div>
+          <p class="mb-4">{{ job.description|truncatechars:300 }}</p>
+          <a
+            href="{% url 'job_detail' job.pk %}"
+            class="text-decoration-none bg-dark p-2 ps-3 pe-3 text-white rounded"
+          >
+            Apply Now</a
+          >
         </li>
         {% endfor %}
       </ul>

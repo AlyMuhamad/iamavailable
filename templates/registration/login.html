@@ -1,0 +1,26 @@
+{% extends 'iamavailable/_base.html' %} {% load crispy_forms_tags %}
+
+<html>
+  <body>
+    {% block content %}
+    <div class="container">
+      {% if form.errors %}
+      <p>You have entered an incorrect username or password</p>
+      {% endif %} {% if next %} {% if not user.is_authenticated %}
+      <h1>Please login to view that page</h1>
+      {% else %}
+      <h1>Please login</h1>
+      {% endif %} {% endif %}
+      <form action="{% url 'login' %}" method="POST">
+        {% csrf_token %} {{ form|crispy }}
+        <input
+          type="submit"
+          value="login"
+          class="mt-3 w-100 no-border p-2 fw-bold border no-border"
+        />
+        <input type="hidden" name="next" value="{{next}}" />
+      </form>
+    </div>
+    {% endblock %}
+  </body>
+</html>
