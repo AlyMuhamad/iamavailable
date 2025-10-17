@@ -1,5 +1,10 @@
 {% extends 'iamavailable/_base.html' %}
 <html>
+  <head>
+    {% block title %}
+    <title>{{ job.title }} | IAmAvailable</title>
+    {% endblock %}
+  </head>
   <body>
     {% block content %}
     <div class="container">
@@ -32,6 +37,14 @@
           <p class="m-0">{{ job.mode }}</p>
         </div>
       </div>
+      <ul class="d-flex gap-2 mb-2 list-unstyled">
+        {% for tag in job.tags.all %}
+        <li class="bg-light p-2 ps-3 pe-3" style="border-radius: 1.2rem">
+          {{tag}}
+        </li>
+        {% endfor %}
+      </ul>
+      <p class="fst-italic">Publised at {{ job.created }}</p>
       <p class="mb-4">{{ job.description }}</p>
       {% if user.is_authenticated%}
       <div>

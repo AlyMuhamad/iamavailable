@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Jobs
+from .models import Job, Tag
 
 # Register your models here.
-admin.site.register(Jobs)
+admin.site.register(Job)
+admin.site.register(Tag)

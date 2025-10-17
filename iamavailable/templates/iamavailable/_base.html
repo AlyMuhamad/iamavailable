@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -6,7 +7,7 @@
     <link
       rel="stylesheet"
       type="text/css"
-      href="../../static/iamavailable/style.css"
+      href="{% static 'styles/styles.css' %}"
     />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
@@ -21,7 +22,9 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    {% block title %}
     <title>Available</title>
+    {% endblock %}
   </head>
   <body>
     <div class="shadow-sm p-3 mb-5 bg-white">
