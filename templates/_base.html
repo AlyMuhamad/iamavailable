@@ -36,16 +36,22 @@
         >
         <div class="d-flex gap-3 align-items-center">
           <a href=" {% url 'about' %}" class="text-decoration-none text-dark"
-            >Contact</a
-          >
-          <a href=" {% url 'about' %}" class="text-decoration-none text-dark"
             >About</a
           >
-          {% if user.is_authenticated %}
+          {% if request.user.is_authenticated %}
           <div>
-            <a href=" {% url 'home' %}" class="text-decoration-none p-2 rounded"
-              >My account</a
+            <a
+              href=" {% url 'home' %}"
+              class="text-decoration-none p-2 rounded"
             >
+              {{user}}
+            </a>
+            <a
+              href=" {% url 'logout' %}"
+              class="text-decoration-none p-2 rounded"
+            >
+              logout
+            </a>
           </div>
           {% else %}
           <a

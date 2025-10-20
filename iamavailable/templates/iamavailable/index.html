@@ -1,4 +1,4 @@
-{% extends 'iamavailable/_base.html' %} {% load static %}
+{% extends '_base.html' %} {% load static %}
 <html>
   <body>
     {% block content %}
@@ -58,6 +58,11 @@
                 class="fa-solid fa-location-dot fa-solid fa-magnifying-glass text-black-50"
               ></i>
               {{ job.location }}
+            </div>
+            <p class="mb-0 fw-bold text-black-50">|</p>
+            <div class="d-flex gap-2 align-items-center">
+              <i class="fa-solid fa-chart-column text-black-50"></i>
+              {{ job.experience }}
             </div>
           </div>
           <ul class="d-flex gap-2 mb-2 list-unstyled">

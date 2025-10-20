@@ -1,4 +1,4 @@
-{% extends 'iamavailable/_base.html' %}
+{% extends '_base.html' %}
 <html>
   <head>
     {% block title %}
@@ -29,12 +29,17 @@
         <p class="mb-0 fw-bold text-black-50">|</p>
         <div class="d-flex gap-2 align-items-center">
           <i class="fa-solid fa-money-bill text-black-50"></i>
-          <p class="m-0">{{ job.salary }}</p>
+          <p class="mb-0">{{ job.salary }}</p>
         </div>
         <p class="mb-0 fw-bold text-black-50">|</p>
         <div class="d-flex gap-2 align-items-center">
           <i class="fa-solid fa-clock text-black-50"></i>
           <p class="m-0">{{ job.mode }}</p>
+        </div>
+        <p class="mb-0 fw-bold text-black-50">|</p>
+        <div class="d-flex gap-2 align-items-center">
+          <i class="fa-solid fa-chart-column text-black-50"></i>
+          <p class="m-0">{{ job.experience }}</p>
         </div>
       </div>
       <ul class="d-flex gap-2 mb-2 list-unstyled">

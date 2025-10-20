@@ -1,16 +1,14 @@
-{% extends 'iamavailable/_base.html' %}
+{% extends '_base.html' %}
 
 <html>
   <body>
     {% block content %}
     <div class="container">
-      <p>This is a page about me</p>
-      {% load static %} {% comment %}
-      <img
-        src="{% static 'iamavailable/illustration-anti-spam.png' %}"
-        alt="illustation"
-      />
-      {% endcomment %}
+      <p>This is an experimental web app for a job board</p>
+      <p>
+        If you have any complaints, inquiries or suggestions, you can contact me
+        via
+      </p>
     </div>
     {% endblock %}
   </body>

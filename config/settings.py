@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     "crispy_bootstrap4",
 
     # LOCAL APP
-    'iamavailable',
+    'iamavailable.apps.IamavailableConfig',
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [

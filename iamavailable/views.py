@@ -1,15 +1,14 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 from .models import Job
 from .forms import JobForm
 
 # Create your views here.
 
 def index(request):
-    jobs = Job.objects.all()
-
     context = {
-        'jobs': jobs,
+        'jobs': Job.objects.all(),
     }
 
     return render(request, 'iamavailable/index.html', context)
@@ -20,7 +19,7 @@ def job_detail(request, id):
     }
     return render(request, 'iamavailable/detail.html', context)
 
-
+@login_required(login_url='login')
 def create_job(request):
     if request.method == 'POST':
         form = JobForm(request.POST)
