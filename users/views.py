@@ -3,7 +3,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, ProfileForm
 
 # Create your views here.
 def registerUser(request):
@@ -21,7 +21,7 @@ def registerUser(request):
             
             login(request, user)
             
-            return redirect('home')
+            return redirect('edit-account')
         
         else:
             messages.error(request, 'Something went wrong, Please try again')
@@ -66,7 +66,26 @@ def logoutUser(request):
 
 @login_required(login_url='login')
 def userAccount(request):
+    profile = request.user.profile
     context = {
-        'profile': request.user.profile
+        'profile': profile,
+        'profile_img': profile.profile_image.url
     }
     return render(request, 'users/account.html', context)
+
+
+@login_required(login_url='login')
+def editAccount(request):
+    profile = request.user.profile
+    form = ProfileForm(instance=profile)
+    
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        
+        if form.is_valid():
+            form.save()
+            
+            return redirect('account')
+    
+    context = { 'form': form } 
+    return render(request, 'users/account_form.html', context)

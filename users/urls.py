@@ -1,34 +1,10 @@
-"""
-URL configuration for config project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.urls import path
-from users.views import loginUser, logoutUser, registerUser, userAccount
-
-# FOR IMAGES
-from django.conf import settings
-from django.conf.urls.static import static
-
+from users.views import loginUser, logoutUser, registerUser, userAccount, editAccount
 
 urlpatterns = [
     path('login/', loginUser, name='login'),
     path('logout/', logoutUser, name='logout'),
     path('signup/', registerUser, name='signup'),
-    path('account/', userAccount, name='account')
+    path('account/', userAccount, name='account'),
+    path('edit-account/', editAccount, name='edit-account')
 ]
-
-
-# FOR IMAGES
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

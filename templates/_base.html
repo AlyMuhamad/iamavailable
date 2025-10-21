@@ -27,11 +27,11 @@
     {% endblock %}
   </head>
   <body>
-    <div class="shadow-sm p-3 mb-5 bg-white">
+    <div class="shadow-sm p-2 mb-5 bg-white">
       <div class="navbar container">
         <a
           href=" {% url 'home' %}"
-          class="text-decoration-none fw-bold text-dark"
+          class="text-decoration-none fs-4 fw-bold text-dark"
           >IAmAvailable</a
         >
         <div class="d-flex gap-3 align-items-center">
@@ -44,7 +44,12 @@
               href=" {% url 'account' %}"
               class="text-decoration-none p-2 rounded"
             >
-              {{user}}
+              <img
+                src="{% static 'images/profiles/default-profile.jpg' %}"
+                class="rounded-circle align-self-center profile-picture"
+                width="50"
+                height="50"
+              />
             </a>
           </div>
           {% else %}

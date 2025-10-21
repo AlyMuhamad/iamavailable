@@ -2,17 +2,51 @@
 <html>
   <body>
     {% block content %}
-    <div class="container">
-      <p>Hello from my account</p>
-      <p>{{profile.name}}</p>
-      <p>{{profile.email}}</p>
-      <p>{{profile.bio}}</p>
-      <img
-        src="https;//www.iamavailable.pythonanywhere.com{{ profile.profile_image.url }}"
-        alt="profile image"
-      />
-      <a href=" {% url 'logout' %}" class="text-decoration-none p-2 rounded">
+    <div class="container d-flex flex-column">
+      <div
+        class="position-relative align-self-center w-100 d-flex justify-content-center"
+      >
+        <img
+          src="{% static 'images/profiles/default-profile.jpg' %}"
+          class="rounded-circle mb-3 profile-picture align-self-center"
+          width="160"
+          height="160"
+        />
+        <a
+          href="{% url 'edit-account' %}"
+          class="position-absolute top-0 end-0 d-flex align-items-center text-decoration-none gap-1 border border-dark-subtle p-2 ps-3 pe-3 rounded"
+        >
+          <i class="fa-solid fa-pen-to-square"></i>
+          <p class="mb-0 fw-bold">edit</p>
+        </a>
+      </div>
+      <div>
+        <p class="fw-bold mb-1">Name</p>
+        <p class="border no-border p-2 rounded">{{profile.name}}</p>
+      </div>
+      <div>
+        <p class="fw-bold mb-1">Email</p>
+        <p class="border no-border p-2 rounded">{{profile.email}}</p>
+      </div>
+      <div>
+        <p class="fw-bold mb-1">Bio</p>
+        <p class="border no-border p-2 rounded">{{profile.bio}}</p>
+      </div>
+      <div>
+        <p class="fw-bold mb-1">Account type</p>
+        <p class="border no-border p-2 rounded">{{profile.type}}</p>
+      </div>
+      <a
+        href=" {% url 'logout' %}"
+        class="text-decoration-none p-2 rounded d-block fw-bold"
+      >
         Logout
+      </a>
+      <a
+        href=" {% url 'logout' %}"
+        class="text-decoration-none p-2 rounded w-100 d-block fw-bold text-danger"
+      >
+        Delete my account
       </a>
     </div>
     {% endblock %}

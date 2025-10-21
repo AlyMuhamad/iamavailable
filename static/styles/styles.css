@@ -12,9 +12,6 @@
   box-sizing: border-box;
 }
 
-html {
-}
-
 body {
   font-family: 'Baloo Bhaijaan 2', sans-serif !important;
   min-height: 100vh;
@@ -29,4 +26,9 @@ div:has(.signup-input) {
 
 .signup-input {
   margin-bottom: 0.2rem;
+}
+
+.profile-picture {
+  object-fit: cover;
+  object-position: top;
 }
