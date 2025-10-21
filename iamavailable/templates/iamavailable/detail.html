@@ -8,35 +8,38 @@
   <body>
     {% block content %}
     <div class="container">
-      <a
-        href='{% url "home" %}'
-        class="d-flex align-items-center text-decoration-none gap-2 border border-dark-50 p-2 rounded mb-3"
-        style="width: fit-content"
-      >
-        <i class="fa-solid fa-arrow-left text-black-50"></i>
-        <p class="mb-0 text-black">back</p>
-      </a>
+      <div class="d-flex align-items-center justify-content-between mb-3">
+        <a
+          href='{% url "home" %}'
+          class="d-flex align-items-center text-decoration-none gap-2 border border-dark-50 p-2 rounded"
+          style="width: fit-content"
+        >
+          <i class="fa-solid fa-arrow-left text-black-50"></i>
+          <p class="mb-0 text-black">back</p>
+        </a>
+        <i class="fa-regular fa-bookmark fs-4 text-black-50"></i>
+      </div>
       <p class="fw-bold fs-4">{{ job.title }}</p>
-      <div class="d-flex gap-3 align-items-center mb-3">
+      <div class="d-flex gap-3 mb-3 job-details">
         <p class="mb-0 fw-bold">{{ job.company }}</p>
-        <p class="mb-0 fw-bold text-black-50">|</p>
+        <p class="mb-0 fw-bold text-black-50 separator">|</p>
         <div class="d-flex gap-2 align-items-center">
           <i
             class="fa-solid fa-location-dot fa-solid fa-magnifying-glass text-black-50"
           ></i>
           <p class="mb-0">{{ job.location }}</p>
         </div>
-        <p class="mb-0 fw-bold text-black-50">|</p>
+        <p class="mb-0 fw-bold text-black-50 separator">|</p>
         <div class="d-flex gap-2 align-items-center">
           <i class="fa-solid fa-money-bill text-black-50"></i>
           <p class="mb-0">{{ job.salary }}</p>
         </div>
-        <p class="mb-0 fw-bold text-black-50">|</p>
+        <p class="mb-0 fw-bold text-black-50 separator">|</p>
         <div class="d-flex gap-2 align-items-center">
           <i class="fa-solid fa-clock text-black-50"></i>
           <p class="m-0">{{ job.mode }}</p>
         </div>
-        <p class="mb-0 fw-bold text-black-50">|</p>
+        <p class="mb-0 fw-bold text-black-50 separator">|</p>
         <div class="d-flex gap-2 align-items-center">
           <i class="fa-solid fa-chart-column text-black-50"></i>
           <p class="m-0">{{ job.experience }}</p>

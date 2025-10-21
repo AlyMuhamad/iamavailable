@@ -20,6 +20,10 @@ body {
   background-color: #f2f4f6;
 }
 
+label {
+  font-weight: 600;
+}
+
 div:has(.signup-input) {
   margin-bottom: 1rem;
 }
@@ -31,4 +35,39 @@ div:has(.signup-input) {
 .profile-picture {
   object-fit: cover;
   object-position: top;
+}
+
+@media (max-width: 84.375em) {
+}
+
+@media (max-width: 75em) {
+}
+
+@media (max-width: 62.5em) {
+}
+
+@media (max-width: 55em) {
+}
+
+@media (max-width: 35.625em) {
+}
+
+@media (max-width: 29.6875em) {
+  .search-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .separator {
+    display: none;
+  }
+
+  .job-details {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .about-link {
+    display: none;
+  }
 }

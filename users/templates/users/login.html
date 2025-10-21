@@ -10,14 +10,14 @@
       </div>
       <form action="{% url 'login' %}" method="POST">
         {% csrf_token %}
-        <label for="username" class="w-100 fw-medium">Username</label>
+        <label for="username" class="w-100 fw-semibold">Username</label>
         <input
           type="text"
           name="username"
           placeholder="Username"
           class="rounded p-2 w-100 border no-border"
         />
-        <label for="password" class="w-100 mt-3 fw-medium">Password</label>
+        <label for="password" class="w-100 mt-3 fw-semibold">Password</label>
         <input
           type="password"
           name="password"

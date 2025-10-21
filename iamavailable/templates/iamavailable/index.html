@@ -10,9 +10,9 @@
         </p>
       </div>
       <form
-        action=""
+        action="{% url 'home' %}"
         method="GET"
-        class="d-flex p-3 gap-2 align-items-center justify-content-center mb-4 mt-5 rounded bg-light"
+        class="d-flex p-3 gap-2 align-items-center justify-content-center mb-4 mt-5 rounded bg-light search-container"
       >
         <div class="position-relative">
           <i
@@ -20,8 +20,10 @@
           ></i>
           <input
             type="text"
-            placeholder="Search for a job"
+            name="search_query"
+            value="{{search_query}}"
             class="rounded p-2 ps-5 border-0"
+            placeholder="Search for a job"
           />
         </div>
         <div class="position-relative">
@@ -30,6 +32,8 @@
           ></i>
           <input
             type="text"
+            name="location_query"
+            value="{{location_query}}"
             placeholder="City or region"
             class="rounded p-2 ps-5 border-0"
           />
@@ -50,16 +54,16 @@
           >
             {{ job.title }}
           </a>
-          <div class="d-flex gap-3 align-items-center mb-3">
+          <div class="d-flex gap-3 mb-3 job-details">
             <p class="mb-0 fw-bold">{{ job.company }}</p>
-            <p class="mb-0 fw-bold text-black-50">|</p>
+            <p class="mb-0 fw-bold text-black-50 separator">|</p>
             <div class="d-flex gap-2 align-items-center">
               <i
                 class="fa-solid fa-location-dot fa-solid fa-magnifying-glass text-black-50"
               ></i>
               {{ job.location }}
             </div>
-            <p class="mb-0 fw-bold text-black-50">|</p>
+            <p class="mb-0 fw-bold text-black-50 separator">|</p>
             <div class="d-flex gap-2 align-items-center">
               <i class="fa-solid fa-chart-column text-black-50"></i>
               {{ job.experience }}
