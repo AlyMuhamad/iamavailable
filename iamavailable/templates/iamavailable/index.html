@@ -87,7 +87,37 @@
         </li>
         {% endfor %}
       </ul>
-      {% else %}
+
+      {% if jobs.has_other_pages %}
+      <nav aria-label="...">
+        <ul class="pagination justify-content-center">
+          <li
+            class="page-item {% if not jobs.has_previous %} disabled {% endif %}"
+          >
+            <a
+              class="page-link"
+              href="{% if jobs.has_previous %}?page={{jobs.previous_page_number}}{% endif %} "
+              >Previous</a
+            >
+          </li>
+          {% for page in paginator.page_range %}
+          <li
+            class="page-item {% if page == jobs.number %} active {% endif %}"
+            aria-current="{% if page == jobs.number %} page {% endif %}"
+          >
+            <a href="?page={{page}}" class="page-link">{{page}}</a>
+          </li>
+          {% endfor %}
+          <li class="page-item">
+            <a
+              class="page-link {% if not jobs.has_next %} disabled {% endif %}"
+              href="{% if jobs.has_next %}?page={{jobs.next_page_number}}{% endif %} "
+              >Next</a
+            >
+          </li>
+        </ul>
+      </nav>
+      {% endif %} {% else %}
       <p>Sorry, we don't have any jobs to display.</p>
       {% endif %}
     </div>

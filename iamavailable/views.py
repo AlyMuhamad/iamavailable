@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from .models import Job, Tag
 from .forms import JobForm
 
@@ -19,15 +20,32 @@ def index(request):
       
     tags = Tag.objects.filter(name__icontains=search_query)
     
-    context = {
-        'jobs': Job.objects.distinct().filter(
+    jobs = Job.objects.distinct().filter(
             Q(title__icontains=search_query) | 
             Q(description__icontains=search_query) |
             Q(tags__in=tags) &
             Q(location__icontains=location_query)
-            ),
+            )
+    
+    page = request.GET.get('page')
+    results = 10
+    paginator = Paginator(jobs, results)
+    
+    try:
+        jobs = paginator.page(page)
+    except PageNotAnInteger:
+        page = 1 
+        jobs = paginator.page(page)
+    except EmptyPage:
+        page = paginator.num_pages
+        jobs = paginator.page(page)
+        
+    
+    context = {
+        'jobs': jobs,
         'search_query': search_query,
-        'location_query': location_query
+        'location_query': location_query,
+        'paginator': paginator
     }
 
     return render(request, 'iamavailable/index.html', context)
