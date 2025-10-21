@@ -22,3 +22,11 @@ body {
   margin: auto;
   background-color: #f2f4f6;
 }
+
+div:has(.signup-input) {
+  margin-bottom: 1rem;
+}
+
+.signup-input {
+  margin-bottom: 0.2rem;
+}

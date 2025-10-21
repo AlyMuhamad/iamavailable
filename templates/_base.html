@@ -41,16 +41,10 @@
           {% if request.user.is_authenticated %}
           <div>
             <a
-              href=" {% url 'home' %}"
+              href=" {% url 'account' %}"
               class="text-decoration-none p-2 rounded"
             >
               {{user}}
-            </a>
-            <a
-              href=" {% url 'logout' %}"
-              class="text-decoration-none p-2 rounded"
-            >
-              logout
             </a>
           </div>
           {% else %}
@@ -64,6 +58,19 @@
       </div>
     </div>
 
+    <div class="container">
+      {% if messages %}
+      <ul
+        class="messages list-unstyled border border-light p-2 rounded bg-light.bg-gradient"
+      >
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{message.tags}}" {% endif %}>
+          {{message}}
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
     {% block content %} {% endblock %}
   </body>
 </html>

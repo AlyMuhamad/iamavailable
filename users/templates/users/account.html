@@ -1,0 +1,20 @@
+{% extends '_base.html' %} {% load static %}
+<html>
+  <body>
+    {% block content %}
+    <div class="container">
+      <p>Hello from my account</p>
+      <p>{{profile.name}}</p>
+      <p>{{profile.email}}</p>
+      <p>{{profile.bio}}</p>
+      <img
+        src="https;//www.iamavailable.pythonanywhere.com{{ profile.profile_image.url }}"
+        alt="profile image"
+      />
+      <a href=" {% url 'logout' %}" class="text-decoration-none p-2 rounded">
+        Logout
+      </a>
+    </div>
+    {% endblock %}
+  </body>
+</html>
