@@ -9,6 +9,12 @@ class Job(models.Model):
         ('Part-time', 'Part-time'),
         ('Full-time', 'Full-time')
     )
+    
+    MODEL_CHOICES = (
+        ('Onsite', 'Onsite'),
+        ('Hybrid', 'Hybrid'),
+        ('Remote', 'Remote')
+        )
 
     EXPERIENCE_CHOICES = (
         ('Intern', 'Intern'),
@@ -25,6 +31,7 @@ class Job(models.Model):
     experience = models.CharField(max_length=50, choices=EXPERIENCE_CHOICES, default='Junior')
     tags = models.ManyToManyField('Tag', blank=True)
     mode = models.CharField(max_length=50, choices=MODE_CHOICES, default='Full-time')
+    model = models.CharField(max_length=50, choices=MODEL_CHOICES, default='Onsite')
     company = models.CharField(max_length=100)
     salary = models.PositiveBigIntegerField()
     number = models.CharField(blank=True, null=True, max_length=11)

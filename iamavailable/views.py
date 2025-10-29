@@ -11,20 +11,30 @@ from .forms import JobForm
 def index(request):
     search_query = ''
     location_query = ''
+    model_query = ''
+    experience_query = ''
     
     if request.GET.get('search_query'):
         search_query = request.GET.get('search_query')
     
     if request.GET.get('location_query'):
         location_query = request.GET.get('location_query')
+    
+    if request.GET.get('model_query'):
+        model_query = request.GET.get('model_query')
       
+      
+    print()
+    
     tags = Tag.objects.filter(name__icontains=search_query)
     
     jobs = Job.objects.distinct().filter(
             Q(title__icontains=search_query) | 
             Q(description__icontains=search_query) |
             Q(tags__in=tags) &
-            Q(location__icontains=location_query)
+            Q(location__icontains=location_query) &
+            Q(model__icontains=model_query) &
+            Q(experience__icontains=experience_query) 
             )
     
     page = request.GET.get('page')
@@ -45,6 +55,8 @@ def index(request):
         'jobs': jobs,
         'search_query': search_query,
         'location_query': location_query,
+        'model_query': model_query,
+        'experience_query': experience_query,
         'paginator': paginator
     }
 

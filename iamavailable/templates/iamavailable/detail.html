@@ -19,10 +19,9 @@
         </a>
         <i class="fa-regular fa-bookmark fs-4 text-black-50"></i>
       </div>
-      <p class="fw-bold fs-4">{{ job.title }}</p>
+      <p class="fw-bold fs-4 mb-1">{{ job.title }}</p>
+      <p class="fw-bold">{{ job.company }}</p>
       <div class="d-flex gap-3 mb-3 job-details">
-        <p class="mb-0 fw-bold">{{ job.company }}</p>
-        <p class="mb-0 fw-bold text-black-50 separator">|</p>
         <div class="d-flex gap-2 align-items-center">
           <i
             class="fa-solid fa-location-dot fa-solid fa-magnifying-glass text-black-50"
@@ -43,6 +42,11 @@
         <div class="d-flex gap-2 align-items-center">
           <i class="fa-solid fa-chart-column text-black-50"></i>
           <p class="m-0">{{ job.experience }}</p>
+        </div>
+        <p class="mb-0 fw-bold text-black-50 separator">|</p>
+        <div class="d-flex gap-2 align-items-center">
+          <i class="fa-solid fa-briefcase text-black-50"></i>
+          <p class="m-0">{{ job.model }}</p>
         </div>
       </div>
       <ul class="d-flex gap-2 mb-2 list-unstyled">
