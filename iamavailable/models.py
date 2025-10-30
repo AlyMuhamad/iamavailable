@@ -1,6 +1,8 @@
 from django.db import models
 from users.models import Profile
+from companies.models import Company
 import uuid
+from django.utils import timesince
 
 
 # Create your models here.
@@ -22,9 +24,11 @@ class Job(models.Model):
         ('Senior', 'Senior'),
         ('Lead', 'Lead')
     )
-    owner = models.ForeignKey(Profile, null=True, blank=True,on_delete=models.CASCADE)
+    
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
     created = models.DateTimeField(auto_now_add=True)
+    owner = models.ForeignKey(Profile, null=True, blank=True,on_delete=models.CASCADE)
+    company = models.ForeignKey(Company,on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
     description = models.TextField()
@@ -32,7 +36,6 @@ class Job(models.Model):
     tags = models.ManyToManyField('Tag', blank=True)
     mode = models.CharField(max_length=50, choices=MODE_CHOICES, default='Full-time')
     model = models.CharField(max_length=50, choices=MODEL_CHOICES, default='Onsite')
-    company = models.CharField(max_length=100)
     salary = models.PositiveBigIntegerField()
     number = models.CharField(blank=True, null=True, max_length=11)
     email = models.EmailField(blank=True)
@@ -40,6 +43,10 @@ class Job(models.Model):
 
     def __str__(self):
         return f"{self.title} | {self.company}"
+    
+    @property
+    def timesince(self):
+        return timesince.timesince(self.created)
     
 class Tag(models.Model):
     name = models.CharField(max_length=200)

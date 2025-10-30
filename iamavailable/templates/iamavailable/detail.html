@@ -20,7 +20,13 @@
         <i class="fa-regular fa-bookmark fs-4 text-black-50"></i>
       </div>
       <p class="fw-bold fs-4 mb-1">{{ job.title }}</p>
-      <p class="fw-bold">{{ job.company }}</p>
+      <p>
+        <a
+          href='{% url "company_detail" job.company.id %}'
+          class="fw-bold text-decoration-none"
+          >{{ job.company }}</a
+        >
+      </p>
       <div class="d-flex gap-3 mb-3 job-details">
         <div class="d-flex gap-2 align-items-center">
           <i
@@ -56,7 +62,7 @@
         </li>
         {% endfor %}
       </ul>
-      <p class="fst-italic">Publised at {{ job.created }}</p>
+      <p class="fst-italic">Published {{job.timesince}} ago</p>
       <p class="mb-4">{{ job.description }}</p>
       {% if user.is_authenticated%}
       <div>

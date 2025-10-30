@@ -5,6 +5,7 @@ from django.db.models import Q
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from .models import Job, Tag
 from .forms import JobForm
+from datetime import date
 
 # Create your views here.
 
@@ -57,8 +58,11 @@ def index(request):
         'location_query': location_query,
         'model_query': model_query,
         'experience_query': experience_query,
-        'paginator': paginator
+        'paginator': paginator,
+        'time': date
     }
+    
+    print(date)
 
     return render(request, 'iamavailable/index.html', context)
 

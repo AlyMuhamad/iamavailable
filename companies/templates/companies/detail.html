@@ -1,0 +1,69 @@
+{% extends '_base.html' %}
+<html>
+  <head>
+    {% block title %}
+    <title>{{ company.name }} | IAmAvailable</title>
+    {% endblock %}
+  </head>
+  <body>
+    {% block content %}
+    <div class="container">
+      <div>
+        <div>
+          <p class="fw-bold fs-4 mb-1">{{company.name}}</p>
+          <p>{{company.location}}</p>
+          <p>{{company.description}}</p>
+        </div>
+      </div>
+
+      <div class="d-flex gap-3">
+        <ul class="list-unstyled">
+          {% for job in jobs %}
+          <li class="shadow-sm p-3 pt-4 pb-4 mb-5 bg-white rounded">
+            <a
+              href="{% url 'job_detail' job.id %}"
+              class="text-decoration-none fw-bold fs-4"
+            >
+              {{ job.title }}
+            </a>
+            <div class="d-flex gap-3 mb-3 mt-2 job-details">
+              <div class="d-flex gap-2 align-items-center">
+                <i class="fa-solid fa-chart-column text-black-50"></i>
+                {{ job.experience }}
+              </div>
+              <p class="mb-0 fw-bold text-black-50 separator">|</p>
+              <div class="d-flex gap-2 align-items-center">
+                <i class="fa-solid fa-clock text-black-50"></i>
+                <p class="m-0">{{ job.mode }}</p>
+              </div>
+              <p class="mb-0 fw-bold text-black-50 separator">|</p>
+              <div class="d-flex gap-2 align-items-center">
+                <i class="fa-solid fa-briefcase text-black-50"></i>
+                <p class="m-0">{{ job.model }}</p>
+              </div>
+            </div>
+            <ul class="d-flex gap-2 mb-2 list-unstyled">
+              {% for tag in job.tags.all %}
+              <li class="bg-light p-2 ps-3 pe-3" style="border-radius: 1.2rem">
+                {{tag}}
+              </li>
+              {% endfor %}
+            </ul>
+            <p>{{ job.description|truncatechars:300 }}</p>
+            <p class="mb-4" style="font-size: 0.9rem">
+              {{ job.timesince }} ago
+            </p>
+            <a
+              href="{% url 'job_detail' job.id %}"
+              class="text-decoration-none bg-dark p-2 ps-3 pe-3 text-white rounded"
+            >
+              Apply Now</a
+            >
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% endblock %}
+  </body>
+</html>

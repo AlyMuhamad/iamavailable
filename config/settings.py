@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # LOCAL APP
     'iamavailable.apps.IamavailableConfig',
     'users.apps.UsersConfig',
+    'companies.apps.CompaniesConfig'
 ]
 
 MIDDLEWARE = [

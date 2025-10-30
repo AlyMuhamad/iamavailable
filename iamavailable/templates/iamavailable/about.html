@@ -1,14 +1,29 @@
-{% extends '_base.html' %}
+{% extends '_base.html' %}{% load static %}
 
 <html>
   <body>
     {% block content %}
-    <div class="container">
-      <p>This is an experimental web app for a job board</p>
-      <p>
-        If you have any complaints, inquiries or suggestions, you can contact me
-        via
-      </p>
+    <div class="container" style="min-height: 60vh">
+      <div class="d-flex justify-content-between mb-5 gap-4">
+        <div>
+          <p class="fw-bold fs-3">IAmAvailable.</p>
+          <p>
+            This is an experimental web app for a job board that offers jobs for
+            technical fields all over the world. All jobs posted here are
+            trustworthy and details were checked before posted
+          </p>
+          <p>
+            If you have any complaints, inquiries or suggestions, I will be more
+            than happy to hear what you have.
+          </p>
+        </div>
+        <img
+          src="{% static 'images/about.jpg' %}"
+          width="300"
+          height="300"
+          class="rounded"
+        />
+      </div>
     </div>
     {% endblock %}
   </body>
