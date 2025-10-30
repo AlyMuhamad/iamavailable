@@ -1,5 +1,5 @@
 from django.db import models
-from users.models import Profile
+
 from companies.models import Company
 import uuid
 from django.utils import timesince
@@ -27,7 +27,6 @@ class Job(models.Model):
     
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
     created = models.DateTimeField(auto_now_add=True)
-    owner = models.ForeignKey(Profile, null=True, blank=True,on_delete=models.CASCADE)
     company = models.ForeignKey(Company,on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
