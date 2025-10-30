@@ -9,7 +9,7 @@ class Company(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
-    description = models.CharField(max_length=400)
+    description = models.TextField()
     
     def __str__(self):
         return self.name
