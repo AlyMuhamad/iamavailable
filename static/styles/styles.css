@@ -39,6 +39,7 @@ div:has(.signup-input) {
 
 .filter-container {
   width: 50%;
+  height: 50%;
 }
 
 .footer {
@@ -102,6 +103,10 @@ div:has(.signup-input) {
   border-top: 1px solid #eee;
 }
 
+.employer-link {
+  margin-left: 1rem;
+}
+
 @media (max-width: 84.375em) {
 }
 
@@ -139,6 +144,28 @@ div:has(.signup-input) {
 
   .about-link {
     display: none;
+  }
+
+  .profile-options {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #000;
+    align-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+  }
+
+  .profile-options a i {
+    color: rgb(255, 255, 255) !important;
+    font-size: 1.6rem !important;
+  }
+
+  .employer-link {
+    margin-left: 3rem !important;
   }
 }
 

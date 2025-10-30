@@ -5,4 +5,4 @@ from .models import Job
 class JobForm(forms.ModelForm):
     class Meta:
         model = Job
-        fields = ['title', 'company','location', 'description', 'tags','salary', 'mode', 'number', 'email'] 
+        fields = ['title', 'location', 'description', 'tags','salary', 'mode', 'number', 'email'] 

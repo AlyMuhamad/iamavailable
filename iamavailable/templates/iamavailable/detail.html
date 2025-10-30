@@ -7,7 +7,7 @@
   </head>
   <body>
     {% block content %}
-    <div class="container">
+    <div class="container mb-5">
       <div class="d-flex align-items-center justify-content-between mb-3">
         <a
           href='{% url "home" %}'
@@ -36,8 +36,8 @@
         </div>
         <p class="mb-0 fw-bold text-black-50 separator">|</p>
         <div class="d-flex gap-2 align-items-center">
-          <i class="fa-solid fa-money-bill text-black-50"></i>
-          <p class="mb-0">{{ job.salary }}</p>
+          <i class="fa-solid fa-chart-column text-black-50"></i>
+          <p class="m-0">{{ job.experience }}</p>
         </div>
         <p class="mb-0 fw-bold text-black-50 separator">|</p>
         <div class="d-flex gap-2 align-items-center">
@@ -46,13 +46,13 @@
         </div>
         <p class="mb-0 fw-bold text-black-50 separator">|</p>
         <div class="d-flex gap-2 align-items-center">
-          <i class="fa-solid fa-chart-column text-black-50"></i>
-          <p class="m-0">{{ job.experience }}</p>
+          <i class="fa-solid fa-briefcase text-black-50"></i>
+          <p class="m-0">{{ job.model }}</p>
         </div>
         <p class="mb-0 fw-bold text-black-50 separator">|</p>
         <div class="d-flex gap-2 align-items-center">
-          <i class="fa-solid fa-briefcase text-black-50"></i>
-          <p class="m-0">{{ job.model }}</p>
+          <i class="fa-solid fa-money-bill text-black-50"></i>
+          <p class="mb-0">{{ job.salary }}</p>
         </div>
       </div>
       <ul class="d-flex gap-2 mb-2 list-unstyled">

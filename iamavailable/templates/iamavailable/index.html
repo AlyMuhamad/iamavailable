@@ -45,10 +45,10 @@
         />
       </form>
       {% if jobs %}
-      <div class="d-flex gap-3 jobs-container">
+      <div class="d-flex gap-3 mb-5 jobs-container">
         <ul class="list-unstyled">
           {% for job in jobs %}
-          <li class="shadow-sm p-3 pt-4 pb-4 mb-5 bg-white rounded">
+          <li class="shadow-sm p-3 pt-4 pb-4 mb-2 bg-white rounded">
             <a
               href="{% url 'job_detail' job.id %}"
               class="text-decoration-none fw-bold fs-4"

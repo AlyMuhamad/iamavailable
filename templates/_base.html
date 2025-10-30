@@ -29,25 +29,28 @@
   <body>
     <div class="shadow-sm p-2 mb-5 bg-white">
       <div class="navbar container">
-        <a
-          href=" {% url 'home' %}"
-          class="text-decoration-none fs-4 fw-bold text-dark"
-          >IAmAvailable</a
-        >
+        <div>
+          <a
+            href=" {% url 'home' %}"
+            class="text-decoration-none fs-4 fw-bold text-dark"
+            >IAmAvailable</a
+          >
+          <a
+            href="{% url 'create_company' %}"
+            class="text-decoration-none text-dark employer-link"
+            >Employers | Post job</a
+          >
+        </div>
         <div class="d-flex gap-3 align-items-center">
           {% if request.user.is_authenticated %}
-          <div class="d-flex align-items-center gap-3">
-            <div class="d-flex gap-4">
-              <a href="#"
-                ><i class="fa-solid fa-bell text-black-50 fs-5"></i
-              ></a>
-              <a href="#"
-                ><i class="fa-solid fa-comment text-black-50 fs-5"></i
-              ></a>
-              <a href="#"
-                ><i class="fa-solid fa-bookmark text-black-50 fs-5"></i
-              ></a>
-            </div>
+          <div class="d-flex align-items-center gap-3 profile-options">
+            <a href="#"><i class="fa-solid fa-bell text-black-50 fs-5"></i></a>
+            <a href="#"
+              ><i class="fa-solid fa-comment text-black-50 fs-5"></i
+            ></a>
+            <a href="#"
+              ><i class="fa-solid fa-bookmark text-black-50 fs-5"></i
+            ></a>
             <a
               href=" {% url 'account' %}"
               class="text-decoration-none p-2 rounded"

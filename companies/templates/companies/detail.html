@@ -1,4 +1,4 @@
-{% extends '_base.html' %}
+{% extends '_base.html' %} {% load static %}
 <html>
   <head>
     {% block title %}
@@ -8,11 +8,17 @@
   <body>
     {% block content %}
     <div class="container">
-      <div>
+      <div class="d-flex gap-3 mb-3">
+        <img
+          src="{% static 'images/default-company-picture.jpg' %}"
+          width="200"
+          height="200"
+          class="rounded"
+        />
         <div>
           <p class="fw-bold fs-4 mb-1">{{company.name}}</p>
           <p>{{company.location}}</p>
-          <p>{{company.description}}</p>
+          <p class="fst-italic">{{company.description}}</p>
         </div>
       </div>
 

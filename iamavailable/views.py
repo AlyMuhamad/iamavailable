@@ -5,6 +5,7 @@ from django.db.models import Q
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from .models import Job, Tag
 from .forms import JobForm
+from companies.models import Company
 from datetime import date
 
 # Create your views here.
@@ -74,6 +75,8 @@ def job_detail(request, id):
 
 @login_required(login_url='login')
 def create_job(request):
+    if not Company.objects.filter(owner=request.user.profile):
+        return redirect(reverse('create_company'))
     if request.method == 'POST':
         form = JobForm(request.POST)
         if form.is_valid():
@@ -102,7 +105,7 @@ def update_job(request, id):
         "form": form
     }
 
-    # return render(request, 'iamavailable/create.html',  context)
+    return render(request, 'iamavailable/create.html',  context)
 
 
 def about(request):
