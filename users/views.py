@@ -88,3 +88,21 @@ def editAccount(request):
     
     context = { 'form': form } 
     return render(request, 'users/account_form.html', context)
+
+
+@login_required(login_url='login')
+def saved(request):
+    
+    return render (request, 'users/saved.html')
+
+
+@login_required(login_url='login')
+def notification(request):
+    
+    return render (request, 'users/notification.html')
+
+
+@login_required(login_url='login')
+def chat(request):
+    
+    return render (request, 'users/chat.html')

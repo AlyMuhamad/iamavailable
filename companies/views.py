@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from .models import Company
 from .forms import CompanyForm
+from iamavailable.forms import JobForm
 from iamavailable.models import Job
 
 # Create your views here.
@@ -55,13 +56,23 @@ def editCompany(request):
         
     context = { "form" : form }
     
-    print(request.method)
-    
     return render(request, 'companies/company_form.html', context)
 
 @login_required(login_url='login')
-def editJob(request):
-    context = {}
+def editJob(request, id):
+    job = Job.objects.get(id=id)
+    form = JobForm(instance=job)
     
-    return render(request, 'companies/company_form.html', context)
+    if request.method == 'POST':
+        form = JobForm(request.POST, request.FILES, instance=job)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('my_company'))
+    
+    context = {
+        'form' : form,
+        'job' : job
+    }
+    
+    return render(request, 'companies/job_form.html', context)
     

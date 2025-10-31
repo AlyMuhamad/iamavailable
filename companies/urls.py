@@ -5,6 +5,6 @@ urlpatterns = [
     path('create-company/', createCompany, name='create_company'),
     path('my-company/', myCompany, name='my_company'),
     path('edit-company/', editCompany, name='edit_company'),
-    path('edit-job/', editJob, name='edit_job'),
+    path('edit-job/<str:id>/', editJob, name='edit_job'),
     path('<str:id>/', companyDetail, name='company_detail')
 ]
