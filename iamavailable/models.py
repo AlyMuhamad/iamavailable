@@ -1,6 +1,7 @@
 from django.db import models
 
 from companies.models import Company
+from users.models import Profile
 import uuid
 from django.utils import timesince
 
@@ -57,3 +58,17 @@ class Tag(models.Model):
     
     class Meta:
         ordering = ['-created']
+
+class Saved(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+    created = models.DateTimeField(auto_now_add=True)
+    
+
+class Application(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+    created = models.DateTimeField(auto_now_add=True)
+    applicant = models.ForeignKey(Profile,on_delete=models.CASCADE)
+    job = models.ForeignKey(Job,on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"{self.job} | {self.applicant}"

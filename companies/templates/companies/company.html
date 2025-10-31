@@ -1,0 +1,93 @@
+{% extends '_base.html' %} {% load static %}
+<html>
+  <head>
+    {% block title %}
+    <title>{{ company.name }} | IAmAvailable</title>
+    {% endblock %}
+  </head>
+  <body>
+    {% block content %}
+    <div class="container mb-5">
+      <div class="d-flex justify-content-between mb-3">
+        <div class="d-flex gap-3">
+          <img
+            src="{% static 'images/default-company-picture.jpg' %}"
+            width="200"
+            height="200"
+            class="rounded company-pic"
+          />
+          <div>
+            <p class="fw-bold fs-4 mb-1">{{company.name}}</p>
+            <p>{{company.location}}</p>
+            <p class="fst-italic">{{company.description}}</p>
+          </div>
+        </div>
+        <a
+          href="{% url 'edit_company' %}"
+          class="d-flex align-items-center text-decoration-none gap-1 border border-dark-subtle p-2 ps-3 pe-3 rounded align-self-start"
+        >
+          <i class="fa-solid fa-pen-to-square"></i>
+          <p class="mb-0 fw-bold">edit</p>
+        </a>
+      </div>
+      <div class="d-flex gap-3">
+        <ul class="list-unstyled">
+          {% for job in jobs %}
+          <li class="shadow-sm p-3 mb-5 bg-white rounded">
+            <div class="d-flex justify-content-between">
+              <a
+                href="{% url 'job_detail' job.id %}"
+                class="text-decoration-none fw-bold fs-4"
+              >
+                {{ job.title }}
+              </a>
+              <div class="d-flex gap-2">
+                <a
+                  href="{% url 'edit_job' %}"
+                  class="d-flex align-items-center text-decoration-none gap-1 border border-dark-subtle p-2 ps-3 pe-3 rounded align-self-start"
+                >
+                  <i class="fa-solid fa-pen-to-square"></i>
+                  <p class="mb-0 fw-bold">edit</p>
+                </a>
+                <a
+                  href="{% url 'edit_company' %}"
+                  class="d-flex align-items-center text-decoration-none gap-1 border border-dark-subtle p-2 ps-3 pe-3 rounded align-self-start text-danger"
+                >
+                  <i class="fa-solid fa-trash"></i>
+                  <p class="mb-0 fw-bold">delete</p>
+                </a>
+              </div>
+            </div>
+            <div class="d-flex gap-3 mb-3 mt-2 job-details">
+              <div class="d-flex gap-2 align-items-center">
+                <i class="fa-solid fa-chart-column text-black-50"></i>
+                {{ job.experience }}
+              </div>
+              <p class="mb-0 fw-bold text-black-50 separator">|</p>
+              <div class="d-flex gap-2 align-items-center">
+                <i class="fa-solid fa-clock text-black-50"></i>
+                <p class="m-0">{{ job.mode }}</p>
+              </div>
+              <p class="mb-0 fw-bold text-black-50 separator">|</p>
+              <div class="d-flex gap-2 align-items-center">
+                <i class="fa-solid fa-briefcase text-black-50"></i>
+                <p class="m-0">{{ job.model }}</p>
+              </div>
+            </div>
+            <ul class="d-flex gap-2 mb-2 list-unstyled">
+              {% for tag in job.tags.all %}
+              <li class="bg-light p-2 ps-3 pe-3" style="border-radius: 1.2rem">
+                {{tag}}
+              </li>
+              {% endfor %}
+            </ul>
+            <p>{{ job.description|truncatechars:300 }}</p>
+            <p style="font-size: 0.9rem">{{ job.timesince }} ago</p>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% endblock %}
+  </body>
+</html>

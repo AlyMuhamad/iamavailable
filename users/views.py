@@ -84,7 +84,6 @@ def editAccount(request):
         
         if form.is_valid():
             form.save()
-            
             return redirect('account')
     
     context = { 'form': form } 
