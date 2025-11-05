@@ -74,9 +74,12 @@ def createJob(request):
     else:
         form = JobForm()   
     
+    company = Company.objects.get(owner=request.user.profile)
+    
     context = {
         "form": form,
-        "company": Company.objects.get(owner=request.user.profile).id
+        "company": company,
+        "id": company.id
     }
 
     return render(request, 'companies/create_job.html',  context)

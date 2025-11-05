@@ -18,8 +18,12 @@
           <p class="mb-0 text-black">back</p>
         </a>
         <div class="d-flex gap-4">
-          <i class="fa-solid fa-share-nodes fs-4 text-black-50"></i>
-          <i class="fa-regular fa-bookmark fs-4 text-black-50"></i>
+          <button class="border-0 bg-transparent share-btn">
+            <i class="fa-solid fa-share-nodes fs-4 text-black-50"></i>
+          </button>
+          <button class="border-0 bg-transparent save-btn">
+            <i class="fa-regular fa-bookmark fs-4 text-black-50"></i>
+          </button>
         </div>
       </div>
       <p class="fw-bold fs-4 mb-1">{{ job.title }}</p>
@@ -105,3 +109,18 @@
     {% endblock %}
   </body>
 </html>
+
+{% block js %}
+<script>
+  const saveBtn = document.querySelector('.save-btn');
+  const shareBtn = document.querySelector('.share-btn');
+
+  saveBtn.addEventListener('click', () => {
+    saveJob();
+  });
+
+  function saveJob() {
+    console.log('Save this job');
+  }
+</script>
+{% endblock %}

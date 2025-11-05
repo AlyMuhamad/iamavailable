@@ -39,7 +39,7 @@
         >
       </div>
       <div class="d-flex gap-3">
-        <ul class="list-unstyled">
+        <ul class="list-unstyled w-100">
           {% for job in jobs %}
           <li class="shadow-sm p-3 mb-5 bg-white rounded">
             <div class="d-flex justify-content-between">
@@ -57,15 +57,14 @@
                   <i class="fa-solid fa-pen-to-square"></i>
                   <p class="mb-0 fw-bold">edit</p>
                 </a>
-                <div
-                  role="button"
-                  class="d-flex align-items-center gap-1 border border-dark-subtle p-2 ps-3 pe-3 rounded align-self-start text-danger"
+                <button
+                  class="d-flex align-items-center gap-1 border border-dark-subtle p-2 ps-3 pe-3 rounded align-self-start text-danger bg-transparent"
                 >
                   <i class="fa-solid fa-trash"></i>
                   <p class="mb-0 fw-bold delete-btn" data-id="{{job.id}}">
                     delete
                   </p>
-                </div>
+                </button>
               </div>
             </div>
             <div class="d-flex gap-3 mb-3 mt-2 job-details">
@@ -155,8 +154,9 @@
 
     try {
       const res = await fetch(`/company/delete-job/${id}/`, requestOptions);
-      if (res) {
+      if (res.ok) {
         console.log('Job was deleted successfully');
+        window.location.href = '/company/my-company';
       } else {
         console.log('Something wrong happened');
       }

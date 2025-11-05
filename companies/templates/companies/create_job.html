@@ -18,20 +18,18 @@
 
 {% block js %}
 <script>
-      {% comment %} const comp = '{{company}}';
-      const companyCont = document.querySelector('#id_company').parentNode;
-      document.querySelector('#id_company').remove();
-      const company = document.createElement('div');
-      company.textContent = comp;
-      company.classList.add('form-control');
-      companyCont.appendChild(company); {% endcomment %}
-  const id = '{{company}}';
-  const companies = document.querySelector('#id_company');
-  for (const company of companies.children) {
-    console.log(company);
-    if (company.getAttribute('value') != id) {
-      company.remove();
-    }
-  }
+  const compCont = document.querySelector('#id_company').parentNode;
+
+  const list = document.createElement('select');
+  list.classList.add('select', 'form-control');
+  list.name = 'company';
+  list.id = 'id_company';
+  const option = document.createElement('option');
+  option.value = '{{id}}';
+  option.textContent = '{{company}}';
+  list.appendChild(option);
+  compCont.appendChild(list);
+
+  document.querySelector('#id_company').remove();
 </script>
 {% endblock %}
