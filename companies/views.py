@@ -1,10 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
+from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from .models import Company
 from .forms import CompanyForm
 from iamavailable.forms import JobForm
 from iamavailable.models import Job
+from django.forms import ModelChoiceField
 
 # Create your views here.
 def companyDetail(request, id):
@@ -31,10 +33,10 @@ def createCompany(request):
         'form': form
     }
     
-    return render(request, 'companies/create.html', context)
+    return render(request, 'companies/create_company.html', context)
 
 @login_required(login_url='login')
-def myCompany(request):
+def myCompany(request):    
     company = Company.objects.get(owner=request.user.profile)
     context = {
         'company': company,
@@ -58,6 +60,27 @@ def editCompany(request):
     
     return render(request, 'companies/company_form.html', context)
 
+
+@login_required(login_url='login')
+def createJob(request):
+    if not Company.objects.filter(owner=request.user.profile):
+        return redirect(reverse('create_company'))
+    
+    if request.method == 'POST':
+        form = JobForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('my_company'))
+    else:
+        form = JobForm()   
+    
+    context = {
+        "form": form,
+        "company": Company.objects.get(owner=request.user.profile).id
+    }
+
+    return render(request, 'companies/create_job.html',  context)
+
 @login_required(login_url='login')
 def editJob(request, id):
     job = Job.objects.get(id=id)
@@ -76,3 +99,9 @@ def editJob(request, id):
     
     return render(request, 'companies/job_form.html', context)
     
+    
+def deleteJob(request, id):
+    if request.method == 'DELETE':
+        job = get_object_or_404(Job, id=id)
+        job.delete()
+        return JsonResponse({'message': 'deleted'}, status=204)

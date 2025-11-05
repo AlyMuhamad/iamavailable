@@ -73,23 +73,6 @@ def job_detail(request, id):
     }
     return render(request, 'iamavailable/detail.html', context)
 
-@login_required(login_url='login')
-def create_job(request):
-    if not Company.objects.filter(owner=request.user.profile):
-        return redirect(reverse('create_company'))
-    if request.method == 'POST':
-        form = JobForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect(reverse('home'))
-    else:
-        form = JobForm()   
-    context = {
-        "form": form
-    }
-
-    return render(request, 'iamavailable/create.html',  context)
-
 # COMING FEEATURE
 def update_job(request, id):
     job = Job.objects.get(id=id)

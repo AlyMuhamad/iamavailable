@@ -107,6 +107,14 @@ div:has(.signup-input) {
   margin-left: 1rem;
 }
 
+.hidden {
+  display: none !important;
+}
+
+.popup-bg {
+  background-color: #00000044;
+}
+
 @media (max-width: 84.375em) {
 }
 
