@@ -32,6 +32,8 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1','iamavailable.pythonanywhere.com']
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,6 +50,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'companies.apps.CompaniesConfig'
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -77,7 +80,11 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
+ASGI_APPLICATION = 'config.asgi.application'
 
+CHANNEL_LAYERS = {
+    'default': {'BACKEND': 'channels.layers.InMemoryChannelLayer'}
+}
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases

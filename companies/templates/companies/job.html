@@ -1,0 +1,222 @@
+{% extends '_base.html' %} {% load static %}
+<html>
+  <head>
+    {% block title %}
+    <title>{{ job.title }} | IAmAvailable</title>
+    {% endblock %}
+  </head>
+  <body>
+    {% block content %}
+    <div class="container mb-5">
+      <div class="d-flex align-items-center justify-content-between mb-3">
+        <a
+          href='{% url "my_company" %}'
+          class="d-flex align-items-center text-decoration-none gap-2 border border-dark-50 p-2 rounded"
+          style="width: fit-content"
+        >
+          <i class="fa-solid fa-arrow-left text-black-50"></i>
+          <p class="mb-0 text-black">back</p>
+        </a>
+        <div class="d-flex gap-4">
+          <a
+            href="{% url 'edit_job' job.id %}"
+            class="d-flex align-items-center text-decoration-none gap-1 border border-dark-subtle p-2 ps-3 pe-3 rounded align-self-start"
+          >
+            <i class="fa-solid fa-pen-to-square"></i>
+            <p class="mb-0 fw-bold">edit</p>
+          </a>
+          <button
+            class="d-flex align-items-center gap-1 border border-dark-subtle p-2 ps-3 pe-3 rounded align-self-start text-danger bg-transparent"
+          >
+            <i class="fa-solid fa-trash"></i>
+            <p class="mb-0 fw-bold delete-btn" data-id="{{job.id}}">delete</p>
+          </button>
+        </div>
+      </div>
+      <p class="fw-bold fs-4 mb-1">{{ job.title }}</p>
+      <p>
+        <a
+          href='{% url "company_detail" job.company.id %}'
+          class="fw-bold text-decoration-none"
+          >{{ job.company }}</a
+        >
+      </p>
+      <div class="d-flex gap-3 mb-3 job-details">
+        <div class="d-flex gap-2 align-items-center">
+          <i
+            class="fa-solid fa-location-dot fa-solid fa-magnifying-glass text-black-50"
+          ></i>
+          <p class="mb-0">{{ job.location }}</p>
+        </div>
+        <p class="mb-0 fw-bold text-black-50 separator">|</p>
+        <div class="d-flex gap-2 align-items-center">
+          <i class="fa-solid fa-chart-column text-black-50"></i>
+          <p class="m-0">{{ job.experience }}</p>
+        </div>
+        <p class="mb-0 fw-bold text-black-50 separator">|</p>
+        <div class="d-flex gap-2 align-items-center">
+          <i class="fa-solid fa-clock text-black-50"></i>
+          <p class="m-0">{{ job.mode }}</p>
+        </div>
+        <p class="mb-0 fw-bold text-black-50 separator">|</p>
+        <div class="d-flex gap-2 align-items-center">
+          <i class="fa-solid fa-briefcase text-black-50"></i>
+          <p class="m-0">{{ job.model }}</p>
+        </div>
+        <p class="mb-0 fw-bold text-black-50 separator">|</p>
+        <div class="d-flex gap-2 align-items-center">
+          <i class="fa-solid fa-money-bill text-black-50"></i>
+          <p class="mb-0">{{ job.salary }}</p>
+        </div>
+      </div>
+      <ul class="d-flex gap-2 mb-2 list-unstyled">
+        {% for tag in job.tags.all %}
+        <li class="bg-light p-2 ps-3 pe-3" style="border-radius: 1.2rem">
+          {{tag}}
+        </li>
+        {% endfor %}
+      </ul>
+      <p class="fst-italic">Published {{job.timesince}} ago</p>
+      <p class="mb-4">{{ job.description }}</p>
+      {% if user.is_authenticated%}
+      <div>
+        <p class="fw-bold">To apply, Please send your CV, via</p>
+        <ul class="list-unstyled ms-3">
+          {% if job.number %}
+          <li>
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <i class="fa-brands fa-whatsapp text-black-50 fs-4"></i>
+              <a
+                href="https://wa.me/+2{{job.number}}"
+                class="mb-0 text-decoration-none"
+                >{{ job.number }}</a
+              >
+            </div>
+          </li>
+          {% endif %} {% if job.email %}
+          <li>
+            <div class="d-flex align-items-center gap-2">
+              <i class="fa-solid fa-envelope text-black-50 fs-4"></i>
+              <a
+                href="mailto:{{job.email}}?subject={{job.title}} applicant"
+                class="mb-0 text-decoration-none"
+                >{{ job.email }}</a
+              >
+            </div>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+      {% else %}
+      <a href="{% url 'login' %}" class="text-decoration-none fw-bold"
+        >Please login to apply for this position</a
+      >
+      {% endif %}
+      <div class="mt-5">
+        <p class="fw-bold">Applicants ({{count}})</p>
+        <ul class="list-unstyled d-flex flex-column gap-4">
+          {% for applicant in applicants %}
+          <li>
+            <a
+              href="{% url 'get_applicant' applicant.applicant.id %}"
+              class="text-decoration-none d-flex align-items-center gap-2"
+            >
+              <img
+                src="{% static 'images/profiles/default-profile.jpg' %}"
+                class="rounded-circle align-self-center profile-picture"
+                width="60"
+                height="60"
+              />
+              <p class="mb-0">{{applicant.applicant.username}}</p>
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="hidden delete-popup">
+        <div
+          class="d-flex justify-content-center align-items-center flex-column position-absolute top-50 start-50 translate-middle bg-white p-5 rounded shadow bg-body rounded gap-3"
+        >
+          <div>
+            <p class="fw-bold fs-4 mb-1">Are you sure you want to delete?</p>
+            <p>this action can't be undone so please be careful</p>
+          </div>
+          <div>
+            <button
+              class="border-0 p-2 ps-4 pe-4 fw-bold text-white bg-danger fs-5 rounded confirm-btn me-2"
+            >
+              Confirm
+            </button>
+            <button
+              class="border-0 p-2 ps-4 pe-4 fw-bold text-white bg-dark fs-5 rounded cancel-btn"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endblock %}
+  </body>
+</html>
+
+{% block js %}
+<script>
+  const deleteBtn = document.querySelector('.delete-btn');
+  const confirmBtn = document.querySelector('.confirm-btn');
+  const cancelBtn = document.querySelector('.cancel-btn');
+  const deletePopup = document.querySelector('.delete-popup');
+
+  deleteBtn.addEventListener('click', () => {
+    deletePopup.classList.remove('hidden');
+  });
+
+  confirmBtn.addEventListener('click', () => {
+    const id = deleteBtn.getAttribute('data-id');
+    deleteJob(id);
+  });
+
+  cancelBtn.addEventListener('click', () => {
+    deletePopup.classList.add('hidden');
+  });
+
+  async function deleteJob(id) {
+    const requestOptions = {
+      method: 'DELETE',
+      headers: {
+        'X-CSRFToken': getCookie('csrftoken'),
+        'Content-Type': 'application/json',
+      },
+    };
+
+    try {
+      const res = await fetch(`/company/delete-job/${id}/`, requestOptions);
+      if (res.ok) {
+        console.log('Job was deleted successfully');
+        window.location.href = '/company/my-company';
+      } else {
+        console.log('Something wrong happened');
+      }
+    } catch (err) {
+      console.log(err);
+    }
+
+    deletePopup.classList.add('hidden');
+  }
+
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === name + '=') {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+</script>
+{% endblock %}

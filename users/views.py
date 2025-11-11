@@ -1,9 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.db.models import Q
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import CustomUserCreationForm, ProfileForm
+from .models import Profile
+from companies.models import Company, Room, Message
 
 # Create your views here.
 def registerUser(request):
@@ -104,5 +107,45 @@ def notification(request):
 
 @login_required(login_url='login')
 def chat(request):
+    rooms , companyAccount = getChats(request)
     
-    return render (request, 'users/chat.html')
+    context = {
+        'rooms': rooms,
+        'companyAccount': companyAccount
+    }
+    
+    return render (request, 'users/chat.html', context)
+
+@login_required(login_url='login')
+def singleChat(request, id):
+    
+    if request.method == 'POST':
+        print(request)
+    
+    rooms , companyAccount = getChats(request)
+    room = get_object_or_404(Room, id=id)
+    msgs = Message.objects.filter(room=room)
+    
+    context = {
+        'rooms': rooms,
+        'companyAccount': companyAccount,
+        'room': room,
+        'id': room.id,
+        'msgs': msgs
+    }
+    
+    return render(request, 'users/single_chat.html', context)
+
+
+# Helper functions
+def getChats(request):
+    profile = request.user.profile
+    company = Company.objects.filter(owner=profile)
+    if company:
+        rooms = Room.objects.filter(company__in=company)
+        companyAccount = True
+    else:
+        rooms = Room.objects.filter(applicant=profile)
+        companyAccount = False
+    
+    return rooms, companyAccount

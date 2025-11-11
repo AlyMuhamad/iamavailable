@@ -1,0 +1,142 @@
+{% extends '_base.html' %} {% load static %}
+
+<html>
+  <body>
+    {% block content %}
+    <div class="container" style="min-height: 60vh">
+      <p class="fs-5">
+        New messages (<span class="fw-bold">{{unreadCount}}</span>)
+      </p>
+      <div class="d-flex h-100 mb-3">
+        <ul
+          class="d-flex flex-column gap-2 border-end ps-0 pe-2 list-unstyled w-25"
+          style="min-height: 50vh"
+        >
+          {% for room in rooms %}
+          <li class="">
+            <a
+              href="{% url 'single-chat' room.id %}"
+              class="d-flex gap-2 p-3 rounded shadow bg-body text-decoration-none text-dark"
+            >
+              <img
+                src="{% static 'images/profiles/default-profile.jpg' %}"
+                class="rounded-circle align-self-center profile-picture"
+                width="60"
+                height="60"
+              />
+              <div>
+                {% if companyAccount %}
+                <p class="fw-bold mb-1">{{room.applicant}}</p>
+                <p class="mb-1">{{room.applicant.email}}</p>
+                {% else %}
+                <p class="fw-bold mb-1">{{room.company.name}}</p>
+                <p class="mb-1">
+                  {{room.company.description|truncatechars:23}}
+                </p>
+                {% endif %}
+              </div>
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+        <div class="p-3 position-relative">
+          <div class="d-flex align-items-center gap-2">
+            <img
+              src="{% static 'images/profiles/default-profile.jpg' %}"
+              class="rounded-circle align-self-center profile-picture"
+              width="60"
+              height="60"
+            />
+            <div class="d-flex flex-column gap-1">
+              {% if companyAccount%}
+              <p class="fw-bold mb-0">{{room.applicant.username}}</p>
+              <p>{{room.applicant.bio}}</p>
+              {% else %}
+              <p class="fw-bold mb-0">{{room.company.name}}</p>
+              <p class="mb-0">{{room.company.description|truncatechars:100}}</p>
+              {% endif %}
+            </div>
+          </div>
+          <div>
+            <ul
+              class="ps-0 mt-3 list-unstyled d-flex flex-column gap-2 msgText"
+              style="height: 60vh"
+            >
+              {% for msg in msgs %}
+              <li class="bg-light p-2 rounded">
+                <p class="mb-0">{{msg.message}}</p>
+              </li>
+              {% endfor %}
+            </ul>
+            <form
+              action=""
+              method="POST"
+              id="message-form"
+              class="position-absolute bottom-0"
+            >
+              {% csrf_token %}
+              <input
+                type="text"
+                name="message"
+                id="msg"
+                placeholder="type your message"
+                class="rounded p-2 w-100 border no-border"
+              />
+              <input
+                value="Send"
+                type="submit"
+                class="mt-2 border-0 p-2 ps-4 pe-4 fw-bold rounded text-white bg-dark submit-btn"
+              />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endblock %}
+  </body>
+</html>
+
+{% block js %}
+<script>
+  const websocketProtocol =
+    window.location.protocol === 'https:' ? 'wss' : 'ws';
+
+  const wsEndpoint = `${websocketProtocol}://${window.location.host}/ws/notification/{{id}}/`;
+
+  const socket = new WebSocket(wsEndpoint);
+
+  socket.onopen = event => {
+    console.log('WebSocket connection opened');
+  };
+
+  socket.onclose = event => {
+    console.log('WebSocket connection closed');
+  };
+
+  document.getElementById('message-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const message = document.getElementById('msg').value;
+    socket.send(
+      JSON.stringify({
+        message: message,
+        id: '{{id}}',
+      })
+    );
+  });
+
+  socket.addEventListener('message', e => {
+    const messageData = JSON.parse(e.data)['message'];
+    console.log(messageData);
+
+    let message = messageData['message'];
+
+    document.getElementById('msg').value = '';
+
+    let messageDiv = document.querySelector('.msgText');
+
+    messageDiv.innerHTML += `<li class="bg-light p-2        rounded">
+    <p class="mb-0">${message}</p>
+    </li>`;
+  });
+</script>
+{% endblock %}

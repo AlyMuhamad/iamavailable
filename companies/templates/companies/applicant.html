@@ -1,0 +1,35 @@
+{% extends '_base.html' %}{% load static %}
+
+<html>
+  <body>
+    {% block content %}
+    <div class="container" style="min-height: 60vh">
+      <div class="d-flex gap-3">
+        <div
+          class="d-flex flex-column align-items-center shadow p-3 mb-5 bg-white rounded gap-3 w-50"
+        >
+          <div class="d-flex flex-column align-items-center gap-1">
+            <img
+              src="{% static 'images/profiles/default-profile.jpg' %}"
+              class="rounded-circle align-self-center profile-picture"
+              width="80"
+              height="80"
+            />
+            <p class="mb-0 fs-5 fw-bold">{{applicant.name}}</p>
+            <p>{{applicant.email}}</p>
+          </div>
+          <a
+            href="/"
+            class="text-decoration-none text-white bg-dark p-2 rounded ps-3 pe-3"
+            >Send a message</a
+          >
+        </div>
+        <div>
+          <p class="fw-bold">Bio</p>
+          <p>{{applicant.bio}}</p>
+        </div>
+      </div>
+    </div>
+    {% endblock %}
+  </body>
+</html>
