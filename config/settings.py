@@ -152,4 +152,5 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 # Redirect user to homepage after successful login
 LOGIN_REDIRECT_URL = 'home'
 
-
+# security
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
