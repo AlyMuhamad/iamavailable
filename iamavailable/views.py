@@ -93,3 +93,9 @@ def update_job(request, id):
 
 def about(request):
     return render(request, 'iamavailable/about.html')
+
+def terms(request):
+    return render(request, 'iamavailable/terms.html')
+
+def contact(request):
+    return render(request, 'iamavailable/contact.html')

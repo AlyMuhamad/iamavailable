@@ -27,7 +27,7 @@
     {% endblock %}
   </head>
   <body>
-    <div class="shadow-sm p-2 mb-5 bg-white">
+    <div class="shadow-sm mb-5 bg-white">
       <div class="navbar container">
         <div>
           <a
@@ -118,8 +118,8 @@
           <div class="col-md-6 text-md-end">
             <ul class="footer-links">
               <li><a href=" {% url 'about' %}">About</a></li>
-              <li><a href="#">Contact</a></li>
-              <li><a href="#">Terms</a></li>
+              <li><a href="{% url 'contact' %}">Contact</a></li>
+              <li><a href="{% url 'terms' %}">Terms</a></li>
             </ul>
           </div>
         </div>

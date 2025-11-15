@@ -4,9 +4,10 @@
     {% block content %}
     <div class="container">
       <div class="d-flex flex-column align-items-center">
-        <p class="fw-bold fs-1">The 1# job board for developers</p>
+        <p class="fw-bold fs-1">The 1# job board for talented</p>
         <p class="text-black-50">
-          Looking for a job? Here you can find the best jobs worldwide
+          Looking for a job? Here you can find the best jobs locally and
+          worldwide
         </p>
       </div>
       <form
@@ -160,7 +161,17 @@
       </nav>
       {% endif %} {% else %}
       <div style="min-height: 30vh">
-        <p>Sorry, we don't have any jobs to display.</p>
+        <div class="d-flex flex-column align-items-center gap-2 mt-4 mb-5">
+          <img
+            src="{% static 'images/no-jobs.jpg' %}"
+            width="400"
+            height="auto"
+            class="rounded"
+          />
+          <p class="fs-5">
+            Sorry, we don't have any jobs to display. Stay tuned for future jobs
+          </p>
+        </div>
       </div>
       {% endif %}
     </div>

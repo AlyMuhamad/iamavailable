@@ -62,7 +62,11 @@ class Tag(models.Model):
 class Saved(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
     created = models.DateTimeField(auto_now_add=True)
+    profile = models.ForeignKey(Profile,on_delete=models.CASCADE, blank=True, null=True)
+    job = models.ForeignKey(Job,on_delete=models.CASCADE, blank=True, null=True)
     
+    def __str__(self):
+        return f"{self.profile} | {self.job}"
 
 class Application(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)

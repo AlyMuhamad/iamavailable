@@ -3,10 +3,11 @@ from django.db.models import Q
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from django.contrib import messages
 from .forms import CustomUserCreationForm, ProfileForm
-from .models import Profile
 from companies.models import Company, Room, Message
+from iamavailable.models import Job, Saved
 
 # Create your views here.
 def registerUser(request):
@@ -95,13 +96,26 @@ def editAccount(request):
 
 @login_required(login_url='login')
 def saved(request):
-    
     return render (request, 'users/saved.html')
 
 
 @login_required(login_url='login')
-def notification(request):
+def saveJob(request, id):
+    profile = request.user.profile
     
+    if request.method == 'POST':
+        job = get_object_or_404(Job, id=id)
+        savedJob = Saved.objects.filter(Q(profile=profile) & Q(job=job))
+        if savedJob:
+            savedJob.remove()
+            return JsonResponse({'message': 'bookmark was removed'})
+        else:
+            Saved.objects.create(profile=profile, job=savedJob)
+            return JsonResponse({'message': 'bookmark was created'})
+        
+
+@login_required(login_url='login')
+def notification(request):
     return render (request, 'users/notification.html')
 
 

@@ -1,5 +1,5 @@
 from django.urls import path
-from users.views import loginUser, logoutUser, registerUser, userAccount, editAccount, saved, notification, chat, singleChat
+from users.views import loginUser, logoutUser, registerUser, userAccount, editAccount, saved, notification, chat, singleChat, saveJob
 
 urlpatterns = [
     path('login/', loginUser, name='login'),
@@ -10,5 +10,6 @@ urlpatterns = [
     path('saved/', saved, name='saved'),
     path('notification/', notification, name='notification'),
     path('chat/', chat, name='chat'),
-    path('chat/<str:id>/', singleChat, name='single-chat')
+    path('chat/<str:id>/', singleChat, name='single-chat'),
+    path('save/<str:id>/', saveJob, name='save-job')
 ]

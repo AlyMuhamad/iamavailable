@@ -138,6 +138,15 @@ option:not(:first-of-type) {
     gap: 1rem;
   }
 
+  .about-container {
+    flex-direction: column-reverse;
+    gap: 1rem;
+  }
+
+  .about-container img {
+    align-self: center;
+  }
+
   .jobs-container {
     flex-direction: column-reverse;
   }

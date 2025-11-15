@@ -7,7 +7,6 @@ from .forms import CompanyForm
 from iamavailable.forms import JobForm
 from iamavailable.models import Job, Application
 from users.models import Profile
-from django.forms import ModelChoiceField
 
 # Create your views here.
 def companyDetail(request, id):

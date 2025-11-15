@@ -22,7 +22,10 @@
             <i class="fa-solid fa-share-nodes fs-4 text-black-50"></i>
           </button>
           <button class="border-0 bg-transparent save-btn">
-            <i class="fa-regular fa-bookmark fs-4 text-black-50"></i>
+            <i
+              class="fa-regular fa-bookmark fs-4 text-black-50"
+              data-id="{{job.id}}"
+            ></i>
           </button>
         </div>
       </div>
@@ -112,15 +115,51 @@
 
 {% block js %}
 <script>
-  const saveBtn = document.querySelector('.save-btn');
+  const saveBtn = document.querySelector('.save-btn').children[0];
   const shareBtn = document.querySelector('.share-btn');
 
   saveBtn.addEventListener('click', () => {
-    saveJob();
+    const id = saveBtn.getAttribute('data-id');
+    saveJob(id);
   });
 
-  function saveJob() {
-    console.log('Save this job');
+  async function saveJob(id) {
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'X-CSRFToken': getCookie('csrftoken'),
+        'Content-Type': 'application/json',
+      },
+    };
+
+    try {
+      const res = await fetch(`/account/save/${id}/`, requestOptions);
+    } catch (err) {
+      console.log(err);
+    }
+
+    if (saveBtn.classList.contains('fa-regular')) {
+      saveBtn.classList.remove('fa-regular');
+      saveBtn.classList.add('fa-solid');
+    } else {
+      saveBtn.classList.add('fa-regular');
+      saveBtn.classList.remove('fa-solid');
+    }
+  }
+
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === name + '=') {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
   }
 </script>
 {% endblock %}
