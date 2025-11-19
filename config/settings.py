@@ -32,7 +32,6 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1','iamavailable.pythonanywhere.com', '3.
 # Application definition
 
 INSTALLED_APPS = [
-    'daphne',
     'channels',
     'django.contrib.admin',
     'django.contrib.auth',
