@@ -1,5 +1,10 @@
 {% extends '_base.html' %} {% load static %}
 <html>
+  <head>
+    {% block title %}
+    <title>Home - IAmAvailable</title>
+    {% endblock %}
+  </head>
   <body>
     {% block content %}
     <div class="container">
@@ -45,11 +50,14 @@
           class="border-0 fw-bold p-2 ps-4 pe-4 bg-dark rounded text-white"
         />
       </form>
+      <div class="d-flex flex-row-reverse">
+        <i class="fa-solid fa-filter text-black-50 fs-4 filter-icon"></i>
+      </div>
       {% if jobs %}
       <div class="d-flex gap-3 mb-5 jobs-container">
         <ul class="list-unstyled">
           {% for job in jobs %}
-          <li class="shadow-sm p-3 pt-4 pb-4 mb-2 bg-white rounded">
+          <li class="shadow-sm p-3 pt-4 pb-4 mb-2 bg-white rounded job-card">
             <a
               href="{% url 'job_detail' job.id %}"
               class="text-decoration-none fw-bold fs-4"
@@ -90,6 +98,7 @@
           </li>
           {% endfor %}
         </ul>
+
         <div class="shadow-sm p-3 bg-white rounded filter-container">
           <p>Fitler jobs by</p>
           <form
@@ -178,3 +187,16 @@
     {% endblock %}
   </body>
 </html>
+{% block js %}
+<script>
+  const filterBtn = document.querySelector('.filter-icon');
+  const filterContainer = document.querySelector('.filter-container');
+  filterBtn.addEventListener('click', () => {
+    if (filterContainer.style.getPropertyValue('display') == 'none') {
+      filterContainer.style.display = 'inline';
+    } else {
+      filterContainer.style.display = 'none';
+    }
+  });
+</script>
+{% endblock %}

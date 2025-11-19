@@ -38,6 +38,10 @@ div:has(.signup-input) {
   object-position: top;
 }
 
+.job-card:hover {
+  background-color: hsla(0, 0%, 0%, 0.02) !important;
+}
+
 .filter-container {
   width: 50%;
   height: 50%;
@@ -114,6 +118,10 @@ div:has(.signup-input) {
 
 .popup-bg {
   background-color: #00000044;
+}
+
+.filter-icon {
+  display: none !important;
 }
 
 option:not(:first-of-type) {
@@ -193,12 +201,20 @@ option:not(:first-of-type) {
   }
 
   .employer-link {
-    margin-left: 3rem !important;
+    margin-left: 6rem !important;
   }
 
   .company-pic {
     width: 100px;
     height: 100px;
+  }
+
+  .filter-icon {
+    display: inline !important;
+  }
+
+  .filter-container {
+    display: none;
   }
 }
 
