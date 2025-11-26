@@ -96,22 +96,30 @@ def editAccount(request):
 
 @login_required(login_url='login')
 def saved(request):
-    return render (request, 'users/saved.html')
+    saved = Saved.objects.filter(profile=request.user.profile)
+    context = {
+        'saved': saved,
+        'count': saved.count()
+    }
+    
+    print(saved)
+    
+    return render (request, 'users/saved.html', context)
 
 
 @login_required(login_url='login')
 def saveJob(request, id):
     profile = request.user.profile
+    job = get_object_or_404(Job, id=id)
     
     if request.method == 'POST':
-        job = get_object_or_404(Job, id=id)
+        Saved.objects.create(profile=profile, job=job)
+        return JsonResponse({'message': 'bookmark was created'})
+    
+    if request.method == 'DELETE':
         savedJob = Saved.objects.filter(Q(profile=profile) & Q(job=job))
-        if savedJob:
-            savedJob.remove()
-            return JsonResponse({'message': 'bookmark was removed'})
-        else:
-            Saved.objects.create(profile=profile, job=savedJob)
-            return JsonResponse({'message': 'bookmark was created'})
+        savedJob.delete()
+        return JsonResponse({'message': 'bookmark was removed'})          
         
 
 @login_required(login_url='login')

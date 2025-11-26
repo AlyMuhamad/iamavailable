@@ -9,7 +9,37 @@
   <body>
     {% block content %}
     <div class="container" style="min-height: 60vh">
-      <p class="fw-bold fs-5">Saved jobs (1)</p>
+      <p class="fw-bold fs-5">Saved jobs ({{count}})</p>
+      <ul class="list-unstyled">
+        {% for job in saved %}
+        <li class="shadow-sm p-3 pt-4 pb-4 mb-2 bg-white rounded job-card">
+          <a
+            href="{% url 'job_detail' job.job.id %}"
+            class="text-decoration-none fw-bold fs-4"
+          >
+            {{ job.job.title }}
+          </a>
+          <p class="fw-bold">{{ job.job.company }}</p>
+          <ul class="d-flex gap-2 mb-2 list-unstyled">
+            {% for tag in job.job.tags.all %}
+            <li class="bg-light p-2 ps-3 pe-3" style="border-radius: 1.2rem">
+              {{tag}}
+            </li>
+            {% endfor %}
+          </ul>
+          <p>{{ job.job.description|truncatechars:100 }}</p>
+          <p class="mb-4 fst-italic" style="font-size: 0.9rem">
+            {{job.job.timesince }} ago
+          </p>
+          <a
+            href="{% url 'job_detail' job.id %}"
+            class="text-decoration-none bg-dark p-2 ps-3 pe-3 text-white rounded"
+          >
+            Apply Now</a
+          >
+        </li>
+        {% endfor %}
+      </ul>
     </div>
     {% endblock %}
   </body>

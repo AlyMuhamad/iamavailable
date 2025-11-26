@@ -3,9 +3,8 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from .models import Job, Tag
+from .models import Job, Tag, Saved 
 from .forms import JobForm
-from companies.models import Company
 from datetime import date
 
 # Create your views here.
@@ -68,12 +67,20 @@ def index(request):
     return render(request, 'iamavailable/index.html', context)
 
 def job_detail(request, id):
+    job = get_object_or_404(Job, id=id)
+    saved = Saved.objects.filter(
+        Q(profile=request.user.profile) &
+        Q(job=job) 
+    )
+        
     context = {
-        'job': get_object_or_404(Job, id=id),
+        'job': job,
+        'saved': saved
     }
+    
     return render(request, 'iamavailable/detail.html', context)
 
-# COMING FEEATURE
+@login_required(login_url='login')
 def update_job(request, id):
     job = Job.objects.get(id=id)
     form = JobForm(instance=job)
