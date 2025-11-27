@@ -73,6 +73,10 @@ class Application(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     applicant = models.ForeignKey(Profile,on_delete=models.CASCADE)
     job = models.ForeignKey(Job,on_delete=models.CASCADE)
+    suitability = models.TextField()
+    resume = models.URLField(max_length=300)
+    expected_salary = models.PositiveBigIntegerField()
+    
     
     def __str__(self):
         return f"{self.job} | {self.applicant}"

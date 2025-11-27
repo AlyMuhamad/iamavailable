@@ -1,4 +1,4 @@
-{% extends '_base.html' %}
+{% extends '_base.html' %} {% load crispy_forms_tags %}
 <html>
   <head>
     {% block title %}
@@ -103,7 +103,23 @@
           {% endif %}
         </ul>
       </div>
+      {% if applied %}
+      <div class="d-flex flex-column gap-2 align-items-center mt-5">
+        <i class="fa-solid fa-check fs-3"></i>
+        <p class="fw-bold">You have applied for this job</p>
+      </div>
       {% else %}
+      <div>
+        <form action="" method="POST" class="d-flex flex-column gap-3">
+          {% csrf_token %} {{form|crispy }}
+          <input
+            type="submit"
+            value="Apply"
+            class="border no-border rounded p-2 fw-bold text-white bg-dark"
+          />
+        </form>
+      </div>
+      {% endif %} {% else %}
       <a href="{% url 'login' %}" class="text-decoration-none fw-bold"
         >Please login to apply for this position</a
       >

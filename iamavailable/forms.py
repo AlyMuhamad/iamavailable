@@ -1,8 +1,23 @@
 from django import forms
-from .models import Job
+from .models import Job, Application
+from companies.models import Company
+from users.models import Profile 
 
 
 class JobForm(forms.ModelForm):
+    company = forms.ModelChoiceField(queryset=Company.objects.all(), widget=forms.HiddenInput())
     class Meta:
         model = Job
         fields = ['title', 'location', 'company','description', 'experience','tags','salary', 'mode', 'model', 'number', 'email'] 
+
+class ApplicationForm(forms.ModelForm):
+    job = forms.ModelChoiceField(queryset=Job.objects.all(), widget=forms.HiddenInput())
+    applicant = forms.ModelChoiceField(queryset=Profile.objects.all(), widget=forms.HiddenInput())
+    class Meta:
+        model = Application
+        fields = ['job', 'applicant' ,'suitability', 'resume', 'expected_salary']
+        labels = {
+            'suitability': 'Why do you think you are the best candidate for this job',
+            'resume': 'Resume/CV link, Please upload your resume on Googledrive / Dropbox / Mediafire etc',
+            'expected_salary': 'What is your expected salary?'
+        }

@@ -63,18 +63,21 @@ def editCompany(request):
 
 @login_required(login_url='login')
 def createJob(request):
+    company = Company.objects.get(owner=request.user.profile)
+    
     if not Company.objects.filter(owner=request.user.profile):
         return redirect(reverse('create_company'))
     
     if request.method == 'POST':
-        form = JobForm(request.POST)
+        post_data = request.POST.copy()
+        post_data['company'] = company
+        form = JobForm(post_data)
         if form.is_valid():
             form.save()
             return redirect(reverse('my_company'))
     else:
         form = JobForm()   
     
-    company = Company.objects.get(owner=request.user.profile)
     
     context = {
         "form": form,

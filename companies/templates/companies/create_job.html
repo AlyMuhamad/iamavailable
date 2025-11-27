@@ -22,19 +22,5 @@
 </html>
 
 {% block js %}
-<script>
-  const compCont = document.querySelector('#id_company').parentNode;
-
-  const list = document.createElement('select');
-  list.classList.add('select', 'form-control');
-  list.name = 'company';
-  list.id = 'id_company';
-  const option = document.createElement('option');
-  option.value = '{{id}}';
-  option.textContent = '{{company}}';
-  list.appendChild(option);
-  compCont.appendChild(list);
-
-  document.querySelector('#id_company').remove();
-</script>
+<script></script>
 {% endblock %}

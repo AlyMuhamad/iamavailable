@@ -9,9 +9,7 @@
   <body>
     {% block content %}
     <div class="container" style="min-height: 60vh">
-      <p class="fs-5">
-        New messages (<span class="fw-bold">{{unreadCount}}</span>)
-      </p>
+      <p class="fw-bold fs-5">New messages (0)</p>
       <div class="d-flex h-100 mb-3">
         <ul
           class="d-flex flex-column gap-2 border-end ps-0 pe-2 list-unstyled w-25"
@@ -44,7 +42,7 @@
           </li>
           {% endfor %}
         </ul>
-        <div class="p-3 position-relative">
+        <div class="p-3 position-relative w-100 mb-5">
           <div class="d-flex align-items-center gap-2">
             <img
               src="{% static 'images/profiles/default-profile.jpg' %}"
@@ -77,7 +75,7 @@
               action=""
               method="POST"
               id="message-form"
-              class="position-absolute bottom-0"
+              class="position-absolute bottom-0 d-flex gap-2 w-100"
             >
               {% csrf_token %}
               <input
@@ -87,11 +85,11 @@
                 placeholder="type your message"
                 class="rounded p-2 w-100 border no-border"
               />
-              <input
-                value="Send"
-                type="submit"
-                class="mt-2 border-0 p-2 ps-4 pe-4 fw-bold rounded text-white bg-dark submit-btn"
-              />
+              <button
+                class="border-0 d-flex align-items-center p-2 rounded-circle"
+              >
+                <i class="fa-solid fa-paper-plane fs-5"></i>
+              </button>
             </form>
           </div>
         </div>
@@ -139,7 +137,7 @@
 
     let messageDiv = document.querySelector('.msgText');
 
-    messageDiv.innerHTML += `<li class="bg-light p-2        rounded">
+    messageDiv.innerHTML += `<li class="bg-light p-2 rounded">
     <p class="mb-0">${message}</p>
     </li>`;
   });

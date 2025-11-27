@@ -3,8 +3,8 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from .models import Job, Tag, Saved 
-from .forms import JobForm
+from .models import Job, Tag, Saved, Application
+from .forms import JobForm, ApplicationForm
 from datetime import date
 
 # Create your views here.
@@ -23,9 +23,6 @@ def index(request):
     
     if request.GET.get('model_query'):
         model_query = request.GET.get('model_query')
-      
-      
-    print()
     
     tags = Tag.objects.filter(name__icontains=search_query)
     
@@ -50,7 +47,6 @@ def index(request):
     except EmptyPage:
         page = paginator.num_pages
         jobs = paginator.page(page)
-        
     
     context = {
         'jobs': jobs,
@@ -61,21 +57,39 @@ def index(request):
         'paginator': paginator,
         'time': date
     }
-    
-    print(date)
 
     return render(request, 'iamavailable/index.html', context)
 
 def job_detail(request, id):
     job = get_object_or_404(Job, id=id)
+    
     saved = Saved.objects.filter(
         Q(profile=request.user.profile) &
         Q(job=job) 
     )
+    
+    applied = Application.objects.filter(
+        Q(applicant=request.user.profile) &
+        Q(job=job) 
+    )
+
+    if request.method == 'POST':
+        post_data = request.POST.copy()
+        post_data['job'] = job
+        post_data['applicant'] = request.user.profile
+        form = ApplicationForm(post_data)
+        if form.is_valid():
+            form.save()
+            return redirect('job_detail', id=job.id)
+            
+    else:
+        form = ApplicationForm()
         
     context = {
         'job': job,
-        'saved': saved
+        'saved': saved,
+        'applied': applied,
+        'form': form
     }
     
     return render(request, 'iamavailable/detail.html', context)
