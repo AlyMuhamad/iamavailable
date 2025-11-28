@@ -1,17 +1,33 @@
 from django.db.models.signals import post_save, post_delete
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 from .models import Profile
+import os
+from dotenv import load_dotenv
 
+# Environment variables
+load_dotenv()
 
 # To create a user profile automatically when user signs up
 def createProfile(sender, instance, created, **kwargs):
     if created:
-        user= instance
+        user = instance
         profile = Profile.objects.create(
             user=user,
             username = user.username,
             email = user.email,
             name = user.first_name
+        )
+        
+        subject = 'Welcome to IAmAvailable'
+        message = 'We are glad you are here '
+        
+        send_mail(
+            subject,
+            message,
+            os.getenv('EMAIL_HOST_USER'),
+            [profile.email],
+            fail_silently=False
         )
 
 post_save.connect(createProfile, sender=User)

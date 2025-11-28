@@ -73,7 +73,6 @@ def userAccount(request):
     profile = request.user.profile
     context = {
         'profile': profile,
-        'profile_img': profile.profile_image.url
     }
     return render(request, 'users/account.html', context)
 

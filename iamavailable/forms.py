@@ -1,5 +1,5 @@
 from django import forms
-from .models import Job, Application
+from .models import Job, Application, Contact
 from companies.models import Company
 from users.models import Profile 
 
@@ -20,4 +20,14 @@ class ApplicationForm(forms.ModelForm):
             'suitability': 'Why do you think you are the best candidate for this job',
             'resume': 'Resume/CV link, Please upload your resume on Googledrive / Dropbox / Mediafire etc',
             'expected_salary': 'What is your expected salary?'
+        }
+        
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = ['name', 'email', 'message']
+        labels = {
+            'name': 'Your full-name',
+            'email': 'Your email',
+            'message': 'Your message'
         }
