@@ -10,10 +10,9 @@ from datetime import date
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.core.mail import send_mail
-from smtplib import SMTPException
 from dotenv import load_dotenv
-from django.conf import settings
-from django.core.mail.backends.smtp import EmailBackend
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 import os
 import json
 
@@ -127,7 +126,7 @@ def update_job(request, id):
 def about(request):
     return render(request, 'iamavailable/about.html')
 
-def terms(request):  
+def terms(request):
     return render(request, 'iamavailable/terms.html')
 
 def contact(request):
