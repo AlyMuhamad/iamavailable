@@ -1,6 +1,8 @@
 from django.db.models.signals import post_save, post_delete
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 from .models import Profile
 import os
 from dotenv import load_dotenv
@@ -20,11 +22,12 @@ def createProfile(sender, instance, created, **kwargs):
         )
         
         subject = 'Welcome to IAmAvailable'
-        message = 'We are glad you are here '
+        html_message = render_to_string('email.html')
+        plain_message = strip_tags(html_message)
         
         send_mail(
             subject,
-            message,
+            plain_message,
             os.getenv('EMAIL_HOST_USER'),
             [profile.email],
             fail_silently=False

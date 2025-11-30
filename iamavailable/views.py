@@ -127,21 +127,7 @@ def update_job(request, id):
 def about(request):
     return render(request, 'iamavailable/about.html')
 
-def terms(request):
-    try:
-        send_mail(
-            'Test Subject',
-            'Test message body',
-            'hello@iamavailable.net',
-            ['alimoh0801@gmail.com'],
-            fail_silently=False,
-        )
-    except SMTPException as e:
-        print(f"SMTP error occurred: {e}")
-    except Exception as e:
-        print(f"An error occurred: {e}")
-    
-    
+def terms(request):  
     return render(request, 'iamavailable/terms.html')
 
 def contact(request):
