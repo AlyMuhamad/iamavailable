@@ -21,14 +21,20 @@ def createProfile(sender, instance, created, **kwargs):
             name = user.first_name
         )
         
+        
         subject = 'Welcome to IAmAvailable'
-        html_message = render_to_string('email.html')
+        html_message = render_to_string('email.html', {
+            'username': user.username
+        })
+        
+        message = strip_tags(html_message)
         
         send_mail(
             subject,
-            html_message,
+            message,
             os.getenv('EMAIL_HOST_USER'),
             [profile.email],
+            html_message=html_message,
             fail_silently=False
         )
 
