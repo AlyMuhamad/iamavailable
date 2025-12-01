@@ -1,0 +1,47 @@
+{% extends '_base.html' %} {% load static %}
+<html>
+  <head>
+    {% block title %}
+    <title>My account - IAmAvailable</title>
+    {% endblock %}
+  </head>
+  <body>
+    {% block content %}
+    <div class="container d-flex flex-column mb-5">
+      <div
+        class="position-relative align-self-center w-100 d-flex justify-content-center"
+      >
+        <img
+          src="{% static 'images/profiles/default-profile.jpg' %}"
+          class="rounded-circle mb-3 profile-picture align-self-center"
+          width="160"
+          height="160"
+        />
+        <a
+          href="{% url 'edit-account' %}"
+          class="position-absolute top-0 end-0 d-flex align-items-center text-decoration-none gap-1 border border-dark-subtle p-2 ps-3 pe-3 rounded"
+        >
+          <i class="fa-solid fa-pen-to-square"></i>
+          <p class="mb-0 fw-bold">edit</p>
+        </a>
+      </div>
+      <div>
+        <p class="fw-bold mb-1">Name</p>
+        <p class="border no-border p-2 rounded">{{profile.name}}</p>
+      </div>
+      <div>
+        <p class="fw-bold mb-1">Email</p>
+        <p class="border no-border p-2 rounded">{{profile.email}}</p>
+      </div>
+      <div>
+        <p class="fw-bold mb-1">Bio</p>
+        <p class="border no-border p-2 rounded">{{profile.bio}}</p>
+      </div>
+      <div>
+        <p class="fw-bold mb-1">Account type</p>
+        <p class="border no-border p-2 rounded">{{profile.type}}</p>
+      </div>
+    </div>
+    {% endblock %}
+  </body>
+</html>

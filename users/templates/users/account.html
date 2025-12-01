@@ -13,43 +13,32 @@
       >
         <img
           src="{% static 'images/profiles/default-profile.jpg' %}"
-          class="rounded-circle mb-3 profile-picture align-self-center"
+          class="rounded-circle mb-5 profile-picture align-self-center"
           width="160"
           height="160"
         />
-        <a
-          href="{% url 'edit-account' %}"
-          class="position-absolute top-0 end-0 d-flex align-items-center text-decoration-none gap-1 border border-dark-subtle p-2 ps-3 pe-3 rounded"
-        >
-          <i class="fa-solid fa-pen-to-square"></i>
-          <p class="mb-0 fw-bold">edit</p>
-        </a>
       </div>
-      <div>
-        <p class="fw-bold mb-1">Name</p>
-        <p class="border no-border p-2 rounded">{{profile.name}}</p>
-      </div>
-      <div>
-        <p class="fw-bold mb-1">Email</p>
-        <p class="border no-border p-2 rounded">{{profile.email}}</p>
-      </div>
-      <div>
-        <p class="fw-bold mb-1">Bio</p>
-        <p class="border no-border p-2 rounded">{{profile.bio}}</p>
-      </div>
-      <div>
-        <p class="fw-bold mb-1">Account type</p>
-        <p class="border no-border p-2 rounded">{{profile.type}}</p>
-      </div>
+
+      <a
+        href="{% url 'history' %}"
+        class="text-decoration-none p-2 fw-bold text-dark fs-5"
+        >History</a
+      >
+
+      <a
+        href="{% url 'personal-info' %}"
+        class="text-decoration-none p-2 fw-bold text-dark fs-5"
+        >Edit personal information</a
+      >
       <a
         href=" {% url 'logout' %}"
-        class="text-decoration-none p-2 rounded d-block fw-bold"
+        class="text-decoration-none p-2 rounded d-block fw-bold fs-5"
       >
         Logout
       </a>
       <a
         href=" {% url 'logout' %}"
-        class="text-decoration-none p-2 rounded w-100 d-block fw-bold text-danger"
+        class="text-decoration-none p-2 rounded w-100 d-block fw-bold text-danger fs-5"
       >
         Delete my account
       </a>

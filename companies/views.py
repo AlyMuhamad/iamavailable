@@ -65,6 +65,9 @@ def editCompany(request):
 def createJob(request):
     company = Company.objects.get(owner=request.user.profile)
     
+    if company.owner != request.user.profile:
+        return redirect(reverse('home'))
+    
     if not Company.objects.filter(owner=request.user.profile):
         return redirect(reverse('create_company'))
     
@@ -90,8 +93,11 @@ def createJob(request):
 @login_required(login_url='login')
 def editJob(request, id):
     job = Job.objects.get(id=id)
-    form = JobForm(instance=job)
     
+    if job.company != request.user.profile.company:
+        return redirect('my_company')
+    
+    form = JobForm(instance=job)
     if request.method == 'POST':
         form = JobForm(request.POST, request.FILES, instance=job)
         if form.is_valid():
@@ -128,9 +134,11 @@ def getJob(request, id):
 @login_required(login_url='login')
 def getApplicant(request, id):
     applicant = get_object_or_404(Profile, id=id)
+    application = get_object_or_404(Application, applicant=applicant)
+    
     context = {
-        'applicant': applicant,
-    }
+        'application': application,
+    } 
     
     return render(request, 'companies/applicant.html', context)
     

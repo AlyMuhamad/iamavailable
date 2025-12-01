@@ -20,7 +20,7 @@
         method="GET"
         class="d-flex p-3 gap-2 align-items-center justify-content-center mb-4 mt-5 rounded bg-light search-container"
       >
-        <div class="position-relative">
+        <div class="position-relative w-100">
           <i
             class="fa-solid fa-magnifying-glass ms-2 text-black-50 position-absolute top-50 translate-middle-y fs-5"
           ></i>
@@ -28,11 +28,11 @@
             type="text"
             name="search_query"
             value="{{search_query}}"
-            class="rounded p-2 ps-5 border-0"
+            class="rounded p-2 ps-5 border-0 w-100"
             placeholder="Search for a job"
           />
         </div>
-        <div class="position-relative">
+        <div class="position-relative w-100">
           <i
             class="fa-solid fa-location-dot fa-solid fa-magnifying-glass ms-2 text-black-50 position-absolute top-50 translate-middle-y fs-5"
           ></i>
@@ -41,7 +41,7 @@
             name="location_query"
             value="{{location_query}}"
             placeholder="City or region"
-            class="rounded p-2 ps-5 border-0"
+            class="rounded p-2 ps-5 border-0 w-100"
           />
         </div>
         <input
@@ -65,7 +65,7 @@
               {{ job.title }}
             </a>
             <p class="fw-bold">{{ job.company }}</p>
-            <div class="d-flex gap-3 mb-3 job-details">
+            <div class="d-flex gap-3 mb-3 align-items-center job-details">
               <div class="d-flex gap-2 align-items-center">
                 <i
                   class="fa-solid fa-location-dot fa-solid fa-magnifying-glass text-black-50"
@@ -111,7 +111,6 @@
               <option value="Hybrid">Hybrid</option>
               <option value="Remote">Remote</option>
             </select>
-
             <select
               class="form-select"
               aria-label="Default select example"

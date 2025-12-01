@@ -7,7 +7,7 @@ from django.http import JsonResponse
 from django.contrib import messages
 from .forms import CustomUserCreationForm, ProfileForm
 from companies.models import Company, Room, Message
-from iamavailable.models import Job, Saved
+from iamavailable.models import Job, Saved, Application
 
 # Create your views here.
 def registerUser(request):
@@ -157,6 +157,25 @@ def singleChat(request, id):
     
     return render(request, 'users/single_chat.html', context)
 
+
+@login_required(login_url='login')
+def history(request):
+    applications =  Application.objects.filter(applicant=request.user.profile)
+    context = {
+        'applications': applications,
+        'count': applications.count()
+    }
+    
+    return render (request, 'users/history.html', context)
+
+@login_required(login_url='login')
+def personalInfo(request):
+    profile = request.user.profile
+    context = {
+        'profile': profile,
+    }
+    
+    return render (request, 'users/personalInfo.html', context)
 
 # Helper functions
 def getChats(request):

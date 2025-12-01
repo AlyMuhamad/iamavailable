@@ -188,6 +188,7 @@ option:not(:first-of-type) {
     align-items: center;
     justify-content: space-between;
     padding: 0.3rem 2.2rem;
+    z-index: 1000;
   }
 
   .profile-options a i {

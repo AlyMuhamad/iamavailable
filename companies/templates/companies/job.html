@@ -41,7 +41,7 @@
           >{{ job.company }}</a
         >
       </p>
-      <div class="d-flex gap-3 mb-3 job-details">
+      <div class="d-flex gap-3 mb-3 align-items-center job-details">
         <div class="d-flex gap-2 align-items-center">
           <i
             class="fa-solid fa-location-dot fa-solid fa-magnifying-glass text-black-50"
@@ -127,7 +127,12 @@
                 width="60"
                 height="60"
               />
-              <p class="mb-0">{{applicant.applicant.username}}</p>
+              <div>
+                <p class="mb-0 fw-bold text-dark">
+                  {{applicant.applicant.username}}
+                </p>
+                <p class="mb-0 text-secondary">{{applicant.applicant.email}}</p>
+              </div>
             </a>
           </li>
           {% endfor %}

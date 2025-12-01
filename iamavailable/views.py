@@ -34,17 +34,21 @@ def index(request):
     
     if request.GET.get('model_query'):
         model_query = request.GET.get('model_query')
+        
+    if request.GET.get('experience_query'):
+        experience_query = request.GET.get('experience_query')
     
     tags = Tag.objects.filter(name__icontains=search_query)
     
     jobs = Job.objects.distinct().filter(
-            Q(title__icontains=search_query) | 
+            (Q(title__icontains=search_query) | 
             Q(description__icontains=search_query) |
-            Q(tags__in=tags) &
+            Q(tags__in=tags)) &
             Q(location__icontains=location_query) &
             Q(model__icontains=model_query) &
             Q(experience__icontains=experience_query) 
             )
+
     
     page = request.GET.get('page')
     results = 10
@@ -73,6 +77,9 @@ def index(request):
 
 def job_detail(request, id):
     job = get_object_or_404(Job, id=id)
+    
+    if job.company==request.user.profile.company:
+        return redirect('get_job', id=job.id)
     
     saved = Saved.objects.filter(
         Q(profile=request.user.profile) &
@@ -104,23 +111,6 @@ def job_detail(request, id):
     }
     
     return render(request, 'iamavailable/detail.html', context)
-
-@login_required(login_url='login')
-def update_job(request, id):
-    job = Job.objects.get(id=id)
-    form = JobForm(instance=job)
-    if request.method == 'POST':
-        form = JobForm(request.POST, instance=job)
-        if form.is_valid():
-            form.save()
-            return redirect(reverse('home'))
-    else:
-        form = JobForm()   
-    context = {
-        "form": form
-    }
-
-    return render(request, 'iamavailable/create.html',  context)
 
 
 def about(request):

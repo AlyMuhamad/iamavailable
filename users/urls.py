@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from users.views import loginUser, logoutUser, registerUser, userAccount, editAccount, saved, notification, chat, singleChat, saveJob
+from users.views import loginUser, logoutUser, registerUser, userAccount, editAccount, saved, notification, chat, singleChat, saveJob, history, personalInfo
 
 urlpatterns = [
     path('login/', loginUser, name='login'),
@@ -20,10 +20,12 @@ urlpatterns = [
          name="password_reset_complete"),
     
     path('', userAccount, name='account'),
-    path('edit-account/', editAccount, name='edit-account'),
+    path('personal-info/', personalInfo, name='personal-info'),
+    path('personail-info/edit', editAccount, name='edit-account'),
     path('saved/', saved, name='saved'),
     path('notification/', notification, name='notification'),
     path('chat/', chat, name='chat'),
+    path('history/', history, name='history'),
     path('chat/<str:id>/', singleChat, name='single-chat'),
     path('save/<str:id>/', saveJob, name='save-job')
 ]

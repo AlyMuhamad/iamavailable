@@ -4,9 +4,9 @@
   <body>
     {% block content %}
     <div class="container" style="min-height: 60vh">
-      <div class="d-flex gap-3">
+      <div class="d-flex gap-3 flex-column flex-lg-row">
         <div
-          class="d-flex flex-column align-items-center shadow p-3 mb-5 bg-white rounded gap-3 w-50"
+          class="d-flex flex-column align-items-center shadow p-3 bg-white rounded gap-3 h-25 ps-5 pe-5"
         >
           <div class="d-flex flex-column align-items-center gap-1">
             <img
@@ -15,18 +15,38 @@
               width="80"
               height="80"
             />
-            <p class="mb-0 fs-5 fw-bold">{{applicant.name}}</p>
-            <p>{{applicant.email}}</p>
+            <div class="mt-2 d-flex flex-column">
+              <p class="mb-0 fs-5 fw-bold">{{application.applicant.name}}</p>
+              <p class="text-secondary">{{application.applicant.email}}</p>
+            </div>
           </div>
-          <a
-            href="/"
-            class="text-decoration-none text-white bg-dark p-2 rounded ps-3 pe-3"
-            >Send a message</a
-          >
         </div>
-        <div>
-          <p class="fw-bold">Bio</p>
-          <p>{{applicant.bio}}</p>
+        <div class="w-100">
+          <div>
+            <p class="fw-bold">Bio</p>
+            <p>{{application.applicant.bio}}</p>
+          </div>
+          <div>
+            <p class="fw-bold">
+              Why do you think you are the best candidate for this job
+            </p>
+            <p>{{application.suitability}}</p>
+          </div>
+          <div>
+            <p class="fw-bold">
+              Resume/CV link, Please upload your resume on Googledrive / Dropbox
+              / Mediafire etc
+            </p>
+            <p>
+              <a href="{{application.resume}}" class="text-decoration-none"
+                >{{application.resume}}</a
+              >
+            </p>
+          </div>
+          <div>
+            <p class="fw-bold">What is your expected salary?</p>
+            <p>{{application.expected_salary}}</p>
+          </div>
         </div>
       </div>
     </div>

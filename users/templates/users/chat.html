@@ -9,44 +9,7 @@
   <body>
     {% block content %}
     <div class="container" style="min-height: 60vh">
-      <p class="fw-bold fs-5">New messages (0)</p>
-      <div class="d-flex h-100">
-        <ul
-          class="d-flex flex-column gap-2 border-end ps-0 pe-2 list-unstyled w-25"
-        >
-          {% for room in rooms %}
-          <li class="">
-            <a
-              href="{% url 'single-chat' room.id %}"
-              class="d-flex gap-2 p-3 rounded shadow bg-body text-decoration-none text-dark"
-            >
-              <img
-                src="{% static 'images/profiles/default-profile.jpg' %}"
-                class="rounded-circle align-self-center profile-picture"
-                width="60"
-                height="60"
-              />
-              <div>
-                {% if companyAccount %}
-                <p class="fw-bold mb-1">{{room.applicant}}</p>
-                <p class="mb-1">{{room.applicant.email}}</p>
-                {% else %}
-                <p class="fw-bold mb-1">{{room.company.name}}</p>
-                <p class="mb-1">
-                  {{room.company.description|truncatechars:23}}
-                </p>
-                {% endif %}
-              </div>
-            </a>
-          </li>
-          {% endfor %}
-        </ul>
-        <div
-          class="d-flex align-items-center justify-content-center w-100 h-100"
-        >
-          <p class="fw-bold fst-italic fs-6">No chat is selected</p>
-        </div>
-      </div>
+      <p>This feature is coming soon, stay tuned</p>
     </div>
     {% endblock %}
   </body>
