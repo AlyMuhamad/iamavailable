@@ -1,18 +1,16 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.http import JsonResponse
-from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from .models import Job, Tag, Saved, Application, Subscription
-from .forms import JobForm, ApplicationForm, ContactForm
+from users.models import Profile
+from .forms import ApplicationForm, ContactForm
 from datetime import date
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.core.mail import send_mail
 from dotenv import load_dotenv
-from django.template.loader import render_to_string
-from django.utils.html import strip_tags
 import os
 import json
 
@@ -78,18 +76,25 @@ def index(request):
 def job_detail(request, id):
     job = get_object_or_404(Job, id=id)
     
-    if job.company==request.user.profile.company:
-        return redirect('get_job', id=job.id)
+    if request.user.is_authenticated:
+        authenticated = 1
+        
+        if job.company==request.user.profile.company:
+            return redirect('get_job', id=job.id)
     
-    saved = Saved.objects.filter(
-        Q(profile=request.user.profile) &
-        Q(job=job) 
-    )
+        saved = Saved.objects.filter(
+            Q(profile=request.user.profile) &
+            Q(job=job) 
+        )
     
-    applied = Application.objects.filter(
-        Q(applicant=request.user.profile) &
-        Q(job=job) 
-    )
+        applied = Application.objects.filter(
+            Q(applicant=request.user.profile) &
+            Q(job=job) 
+        )
+    else:
+        authenticated = 0
+        saved = {}
+        applied = {}
 
     if request.method == 'POST':
         post_data = request.POST.copy()
@@ -104,6 +109,7 @@ def job_detail(request, id):
         form = ApplicationForm()
         
     context = {
+        'authenticated': authenticated,
         'job': job,
         'saved': saved,
         'applied': applied,

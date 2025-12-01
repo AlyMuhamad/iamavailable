@@ -10,6 +10,8 @@
     {% block content %}
     <div class="container" style="min-height: 60vh">
       <p class="fw-bold fs-5">Saved jobs ({{count}})</p>
+      {% if count %}
+
       <ul class="list-unstyled">
         {% for job in saved %}
         <li class="shadow-sm p-3 pt-4 pb-4 mb-2 bg-white rounded job-card">
@@ -40,6 +42,14 @@
         </li>
         {% endfor %}
       </ul>
+      {% else %}
+      <div>
+        <p>
+          You don't have any saved jobs. You can save interesting jobs to apply
+          for them later
+        </p>
+      </div>
+      {% endif %}
     </div>
     {% endblock %}
   </body>

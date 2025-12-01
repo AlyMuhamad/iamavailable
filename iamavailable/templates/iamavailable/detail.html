@@ -135,11 +135,16 @@
   const shareBtn = document.querySelector('.share-btn');
 
   saveBtn.addEventListener('click', () => {
-    const id = saveBtn.getAttribute('data-id');
-    saveJob(id);
+    if ({{authenticated}}){
+      const id = saveBtn.getAttribute('data-id');
+      saveJob(id);
+    } else {
+      return
+    }
   });
 
   function saveJob(id) {
+
     if (saveBtn.classList.contains('fa-regular')) {
       saveBtn.classList.remove('fa-regular');
       saveBtn.classList.add('fa-solid');
