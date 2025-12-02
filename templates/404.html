@@ -1,0 +1,24 @@
+{% extends '_base.html' %}
+
+<html>
+  <head>
+    {% block title %}
+    <title>Not found - IAmAvailable</title>
+    {% endblock %}
+  </head>
+  <body>
+    {% block content %}
+    <div class="container" style="min-height: 60vh">
+      <div class="d-flex align-items-center flex-column">
+        <p class="fs-2 fw-bold">Not found</p>
+        <p class="">Sorry, we don't have a page for the request url</p>
+        <a
+          href='{% url "home" %}'
+          class="text-decoration-none border border-secondary p-2 pe-3 ps-3 rounded fw-bold"
+          >Go home</a
+        >
+      </div>
+    </div>
+    {% endblock %}
+  </body>
+</html>

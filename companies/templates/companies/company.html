@@ -27,7 +27,7 @@
           class="d-flex align-items-center text-decoration-none gap-1 border border-dark-subtle p-2 ps-3 pe-3 rounded align-self-start"
         >
           <i class="fa-solid fa-pen-to-square"></i>
-          <p class="mb-0 fw-bold">edit</p>
+          <p class="mb-0 fw-bold icon-label">edit</p>
         </a>
       </div>
       <div class="d-flex justify-content-center">
@@ -55,15 +55,14 @@
                   class="d-flex align-items-center text-decoration-none gap-1 border border-dark-subtle p-2 ps-3 pe-3 rounded align-self-start"
                 >
                   <i class="fa-solid fa-pen-to-square"></i>
-                  <p class="mb-0 fw-bold">edit</p>
+                  <p class="mb-0 fw-bold icon-label">edit</p>
                 </a>
                 <button
-                  class="d-flex align-items-center gap-1 border border-dark-subtle p-2 ps-3 pe-3 rounded align-self-start text-danger bg-transparent"
+                  class="d-flex align-items-center gap-1 border border-dark-subtle p-2 ps-3 pe-3 rounded align-self-start text-danger bg-transparent delete-btn"
+                  data-id="{{job.id}}"
                 >
                   <i class="fa-solid fa-trash"></i>
-                  <p class="mb-0 fw-bold delete-btn" data-id="{{job.id}}">
-                    delete
-                  </p>
+                  <p class="mb-0 fw-bold icon-label">delete</p>
                 </button>
               </div>
             </div>

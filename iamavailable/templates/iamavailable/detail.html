@@ -7,7 +7,7 @@
   </head>
   <body>
     {% block content %}
-    <div class="container mb-5">
+    <div class="container mb-5" style="min-height: 60vh">
       <div class="d-flex align-items-center justify-content-between mb-3">
         <a
           href='{% url "home" %}'
@@ -104,9 +104,45 @@
         </ul>
       </div>
       {% if applied %}
-      <div class="d-flex flex-column gap-2 align-items-center mt-5">
-        <i class="fa-solid fa-check fs-3"></i>
-        <p class="fw-bold">You have applied for this job</p>
+      <div>
+        <div class="d-flex flex-column gap-2 align-items-center mt-5">
+          <i class="fa-solid fa-check fs-3"></i>
+          <p class="fw-bold">You have applied for this job</p>
+        </div>
+        <div>
+          <p class="mt-4 fw-bold fs-5">Your application</p>
+          <ul class="list-unstyled">
+            {% for application in applied %}
+            <li>
+              <div>
+                <p class="fw-bold mb-1">
+                  Why do you think you are the best candidate for this job?
+                </p>
+                <p class="border no-border p-2 rounded">
+                  {{application.suitability}}
+                </p>
+              </div>
+              <div>
+                <p class="fw-bold mb-1">
+                  Resume/CV link, Please upload your resume on Googledrive /
+                  Dropbox / Mediafire etc
+                </p>
+                <p class="border no-border p-2 rounded">
+                  <a href="{{application.resume}}" class="text-decoration-none"
+                    >{{application.resume}}</a
+                  >
+                </p>
+              </div>
+              <div>
+                <p class="fw-bold mb-1">What is your expected salary?</p>
+                <p class="border no-border p-2 rounded">
+                  {{application.expected_salary}}
+                </p>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
       </div>
       {% else %}
       <div>

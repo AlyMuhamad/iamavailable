@@ -221,6 +221,10 @@ option:not(:first-of-type) {
   .footer-links {
     margin-bottom: 2rem;
   }
+
+  .icon-label {
+    display: none;
+  }
 }
 
 @media (max-width: 29.6875em) {

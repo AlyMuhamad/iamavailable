@@ -51,7 +51,7 @@
         />
       </form>
       <div class="d-flex flex-row-reverse">
-        <i class="fa-solid fa-filter text-black-50 fs-4 filter-icon"></i>
+        <i class="fa-solid fa-filter text-black-50 fs-4 mb-3 filter-icon"></i>
       </div>
       {% if jobs %}
       <div class="d-flex gap-3 mb-5 jobs-container">
@@ -94,7 +94,7 @@
         </ul>
 
         <div class="shadow-sm p-3 bg-white rounded filter-container">
-          <p>Fitler jobs by</p>
+          <p>Filter jobs by</p>
           <form
             action="{% url 'home' %}"
             method="GET"
@@ -189,6 +189,7 @@
 <script>
   const filterBtn = document.querySelector('.filter-icon');
   const filterContainer = document.querySelector('.filter-container');
+
   filterBtn.addEventListener('click', () => {
     if (filterContainer.style.getPropertyValue('display') == 'none') {
       filterContainer.style.display = 'inline';

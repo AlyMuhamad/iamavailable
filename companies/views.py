@@ -10,8 +10,14 @@ from users.models import Profile
 
 # Create your views here.
 def companyDetail(request, id):
+    company = get_object_or_404(Company, id=id)
+    
+    if request.user.is_authenticated:
+        if company == request.user.profile.company:
+            return redirect(reverse('my_company'))
+    
     context = {
-        'company': get_object_or_404(Company, id=id),
+        'company': company,
         'jobs': Job.objects.filter(company__id=id)
     }
     
@@ -121,6 +127,9 @@ def deleteJob(request, id):
 
 @login_required(login_url='login')
 def getJob(request, id):
+    
+    print(request.user.profile.id)
+    
     job = get_object_or_404(Job, id=id)
     applicants = Application.objects.filter(job=job)
     context = {

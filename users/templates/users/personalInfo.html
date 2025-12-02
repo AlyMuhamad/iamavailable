@@ -22,7 +22,7 @@
           class="position-absolute top-0 end-0 d-flex align-items-center text-decoration-none gap-1 border border-dark-subtle p-2 ps-3 pe-3 rounded"
         >
           <i class="fa-solid fa-pen-to-square"></i>
-          <p class="mb-0 fw-bold">edit</p>
+          <p class="mb-0 fw-bold icon-label">edit</p>
         </a>
       </div>
       <div>
@@ -38,8 +38,16 @@
         <p class="border no-border p-2 rounded">{{profile.bio}}</p>
       </div>
       <div>
-        <p class="fw-bold mb-1">Account type</p>
-        <p class="border no-border p-2 rounded">{{profile.type}}</p>
+        <p class="fw-bold mb-1">LinkedIn</p>
+        <p class="border no-border p-2 rounded">{{profile.linkedIn}}</p>
+      </div>
+      <div>
+        <p class="fw-bold mb-1">Github</p>
+        <p class="border no-border p-2 rounded">{{profile.github}}</p>
+      </div>
+      <div>
+        <p class="fw-bold mb-1">Portfolio</p>
+        <p class="border no-border p-2 rounded">{{profile.portfolio}}</p>
       </div>
     </div>
     {% endblock %}

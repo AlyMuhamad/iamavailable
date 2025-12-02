@@ -45,7 +45,7 @@ def index(request):
             Q(location__icontains=location_query) &
             Q(model__icontains=model_query) &
             Q(experience__icontains=experience_query) 
-            )
+            ).order_by('-created')
 
     
     page = request.GET.get('page')
@@ -95,7 +95,7 @@ def job_detail(request, id):
         authenticated = 0
         saved = {}
         applied = {}
-
+    
     if request.method == 'POST':
         post_data = request.POST.copy()
         post_data['job'] = job

@@ -17,7 +17,7 @@ class ApplicationForm(forms.ModelForm):
         model = Application
         fields = ['job', 'applicant' ,'suitability', 'resume', 'expected_salary']
         labels = {
-            'suitability': 'Why do you think you are the best candidate for this job',
+            'suitability': 'Why do you think you are the best candidate for this job?',
             'resume': 'Resume/CV link, Please upload your resume on Googledrive / Dropbox / Mediafire etc',
             'expected_salary': 'What is your expected salary?'
         }
