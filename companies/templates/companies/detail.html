@@ -7,7 +7,7 @@
   </head>
   <body>
     {% block content %}
-    <div class="container">
+    <div class="container" style="min-height: 60vh">
       <div class="d-flex gap-3 mb-3">
         <img
           src="{% static 'images/default-company-picture.jpg' %}"
@@ -18,11 +18,22 @@
         <div>
           <p class="fw-bold fs-4 mb-1">{{company.name}}</p>
           <p>{{company.location}}</p>
-          <p class="fst-italic">{{company.description}}</p>
         </div>
       </div>
-
-      <div class="d-flex gap-3">
+      <div class="d-flex mb-3">
+        <button
+          class="border no-border p-2 fw-bold text-white bg-dark w-50 fs-5 about-btn"
+        >
+          About
+        </button>
+        <button class="border no-border p-2 fw-bold w-50 fs-5 jobs-btn">
+          Jobs
+        </button>
+      </div>
+      <div class="mb-5 about-cont">
+        <p class="fst-italic">{{company.description}}</p>
+      </div>
+      <div class="d-flex gap-3 hidden jobs-cont">
         <ul class="list-unstyled">
           {% for job in jobs %}
           <li class="shadow-sm p-3 pt-4 pb-4 mb-5 bg-white rounded">
@@ -73,3 +84,29 @@
     {% endblock %}
   </body>
 </html>
+
+{% block js %}
+<script>
+  const aboutBtn = document.querySelector('.about-btn');
+  const jobsBtn = document.querySelector('.jobs-btn');
+
+  const aboutCont = document.querySelector('.about-cont');
+  const jobsCont = document.querySelector('.jobs-cont');
+
+  aboutBtn.addEventListener('click', () => {
+    aboutBtn.classList.add('text-white', 'bg-dark');
+    jobsBtn.classList.remove('text-white', 'bg-dark');
+
+    aboutCont.classList.remove('hidden');
+    jobsCont.classList.add('hidden');
+  });
+
+  jobsBtn.addEventListener('click', () => {
+    aboutBtn.classList.remove('text-white', 'bg-dark');
+    jobsBtn.classList.add('text-white', 'bg-dark');
+
+    aboutCont.classList.add('hidden');
+    jobsCont.classList.remove('hidden');
+  });
+</script>
+{% endblock %}
