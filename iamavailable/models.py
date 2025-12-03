@@ -39,7 +39,6 @@ class Job(models.Model):
     salary = models.PositiveBigIntegerField()
     number = models.CharField(blank=True, null=True, max_length=11)
     email = models.EmailField(blank=True)
-    is_new = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.title} | {self.company}"

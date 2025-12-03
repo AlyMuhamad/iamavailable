@@ -124,6 +124,10 @@ div:has(.signup-input) {
   display: none !important;
 }
 
+.separator {
+  font-size: 1.4rem;
+}
+
 option:not(:first-of-type) {
   font-family: 'Baloo Bhaijaan 2', sans-serif !important;
 }

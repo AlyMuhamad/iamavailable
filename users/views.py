@@ -87,7 +87,7 @@ def editAccount(request):
         
         if form.is_valid():
             form.save()
-            return redirect('account')
+            return redirect('personal-info')
     
     context = { 'form': form } 
     return render(request, 'users/account_form.html', context)
