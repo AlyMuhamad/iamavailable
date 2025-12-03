@@ -214,7 +214,7 @@ option:not(:first-of-type) {
   }
 
   .employer-link {
-    margin-left: 6rem !important;
+    margin-left: 3rem !important;
   }
 
   .company-pic {
@@ -242,6 +242,10 @@ option:not(:first-of-type) {
   .jobs-btn,
   .create-btn {
     font-size: 1rem !important;
+  }
+
+  .copy-popup {
+    padding: 0.5rem !important;
   }
 }
 

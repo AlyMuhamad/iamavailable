@@ -8,6 +8,12 @@
   <body>
     {% block content %}
     <div class="container mb-5" style="min-height: 60vh">
+      <div
+        class="position-absolute start-50 translate-middle-x bg-white p-2 ps-3 pe-3 rounded d-flex align-items-center gap-2 shadow-sm hidden copy-popup"
+      >
+        <i class="fa-solid fa-circle-check text-success"></i>
+        <p class="mb-0">Job link was copied</p>
+      </div>
       <div class="d-flex align-items-center justify-content-between mb-3">
         <a
           href='{% url "home" %}'
@@ -167,61 +173,81 @@
 
 {% block js %}
 <script>
-  const saveBtn = document.querySelector('.save-btn').children[0];
-  const shareBtn = document.querySelector('.share-btn');
+    const saveBtn = document.querySelector('.save-btn').children[0];
+    const shareBtn = document.querySelector('.share-btn');
+    const copyPopup = document.querySelector('.copy-popup');
 
-  saveBtn.addEventListener('click', () => {
-    if ({{authenticated}}){
-      const id = saveBtn.getAttribute('data-id');
-      saveJob(id);
-    } else {
-      return
-    }
-  });
+    saveBtn.addEventListener('click', () => {
+      if ({{authenticated}}){
+        const id = saveBtn.getAttribute('data-id');
+        saveJob(id);
+      } else {
+        return
+      }
+    });
 
-  function saveJob(id) {
-
-    if (saveBtn.classList.contains('fa-regular')) {
-      saveBtn.classList.remove('fa-regular');
-      saveBtn.classList.add('fa-solid');
-      save('POST', id)
-    } else {
-      saveBtn.classList.add('fa-regular');
-      saveBtn.classList.remove('fa-solid');
-      save('DELETE', id)
-    }
-  }
-
-  {% comment %} HELPER FUNCTIONS {% endcomment %}
-  function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-      const cookies = document.cookie.split(';');
-      for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i].trim();
-        if (cookie.substring(0, name.length + 1) === name + '=') {
-          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-          break;
-        }
+    function saveJob(id) {
+      if (saveBtn.classList.contains('fa-regular')) {
+        saveBtn.classList.remove('fa-regular');
+        saveBtn.classList.add('fa-solid');
+        save('POST', id)
+      } else {
+        saveBtn.classList.add('fa-regular');
+        saveBtn.classList.remove('fa-solid');
+        save('DELETE', id)
       }
     }
-    return cookieValue;
+
+    shareBtn.addEventListener('click', () => {
+      const id = saveBtn.getAttribute('data-id');
+      copyTextToClipboard(id);
+      }
+    );
+
+    function copyTextToClipboard(id) {
+      if(navigator.clipboard){
+        navigator.clipboard.writeText(`https://iamavailable.net/job/${id}/`).then(function() {
+          console.log('Async: Copying to clipboard was successful!');
+          copyPopup.classList.remove('hidden')
+          setTimeout(() => {
+            copyPopup.classList.add('hidden')
+        }, 1250);
+        }, function(err) {
+          console.error('Async: Could not copy text: ', err);
+        });
+      }
   }
 
-  async function save(action, id){
-    const requestOptions = {
-      method: action,
-      headers: {
-        'X-CSRFToken': getCookie('csrftoken'),
-        'Content-Type': 'application/json',
-      },
-    };
-
-    try {
-      const res = await fetch(`/account/save/${id}/`, requestOptions);
-    } catch (err) {
-      console.log(err);
+    {% comment %} HELPER FUNCTIONS {% endcomment %}
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === name + '=') {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
     }
-  }
+
+    async function save(action, id){
+      const requestOptions = {
+        method: action,
+        headers: {
+          'X-CSRFToken': getCookie('csrftoken'),
+          'Content-Type': 'application/json',
+        },
+      };
+
+      try {
+        const res = await fetch(`/account/save/${id}/`, requestOptions);
+      } catch (err) {
+        console.log(err);
+      }
+    }
 </script>
 {% endblock %}

@@ -52,7 +52,7 @@
       <div class="d-flex gap-3 hidden jobs-cont">
         <ul class="list-unstyled w-100">
           {% for job in jobs %}
-          <li class="shadow-sm p-3 mb-5 bg-white rounded">
+          <li class="shadow-sm p-3 mb-5 bg-white rounded job-card">
             <div class="d-flex justify-content-between">
               <a
                 href="{% url 'get_job' job.id %}"
