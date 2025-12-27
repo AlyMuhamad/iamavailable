@@ -26,6 +26,21 @@ class Job(models.Model):
         ('Lead', 'Lead')
     )
     
+    CATEGORY_CHOICES = (
+        ('Uncategorized', 'Uncategorized'),
+        ('Arts', 'Arts'),
+        ('Business', 'Business'),
+        ('Communications', 'Communications'),
+        ('Education', 'Education'),
+        ('Healthcare', 'Healthcare'),
+        ('Hospitality', 'Hospitality'),
+        ('Information technology', 'Information technology'),
+        ('Law', 'Law'),
+        ('Sales and Marketing', 'Sales and Marketing'),
+        ('Science', 'Science'),
+        ('Transportation', 'Transportation')
+    )
+    
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
     created = models.DateTimeField(auto_now_add=True)
     company = models.ForeignKey(Company,on_delete=models.CASCADE)
@@ -34,6 +49,7 @@ class Job(models.Model):
     description = models.TextField()
     experience = models.CharField(max_length=50, choices=EXPERIENCE_CHOICES, default='Junior')
     tags = models.ManyToManyField('Tag', blank=True)
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default='Uncategorized')
     mode = models.CharField(max_length=50, choices=MODE_CHOICES, default='Full-time')
     model = models.CharField(max_length=50, choices=MODEL_CHOICES, default='Onsite')
     salary = models.PositiveBigIntegerField()
@@ -68,6 +84,12 @@ class Saved(models.Model):
         return f"{self.profile} | {self.job}"
 
 class Application(models.Model):
+    STATUS_CHOICES = (
+        ('Undecided', 'Undecided'),
+        ('Accepted', 'Accepted'),
+        ('Rejected', 'Rejected')
+        )
+    
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
     created = models.DateTimeField(auto_now_add=True)
     applicant = models.ForeignKey(Profile,on_delete=models.CASCADE)
@@ -75,6 +97,7 @@ class Application(models.Model):
     suitability = models.TextField()
     resume = models.URLField(max_length=300)
     expected_salary = models.PositiveBigIntegerField()
+    status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='Undecided')
     
     
     def __str__(self):

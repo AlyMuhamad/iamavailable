@@ -4,7 +4,6 @@ from django.http import JsonResponse
 from django.db.models import Q
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from .models import Job, Tag, Saved, Application, Subscription
-from users.models import Profile
 from .forms import ApplicationForm, ContactForm
 from datetime import date
 from django.core.exceptions import ValidationError
@@ -23,6 +22,8 @@ def index(request):
     location_query = ''
     model_query = ''
     experience_query = ''
+    date_query = ''
+    category_query = ''
     
     if request.GET.get('search_query'):
         search_query = request.GET.get('search_query')
@@ -36,7 +37,15 @@ def index(request):
     if request.GET.get('experience_query'):
         experience_query = request.GET.get('experience_query')
     
+    if request.GET.get('date_query'):
+        date_query = request.GET.get('date_query')
+    
+    if request.GET.get('category_query'):
+        category_query = request.GET.get('category_query')
+    
     tags = Tag.objects.filter(name__icontains=search_query)
+    
+    print(request.GET)
     
     jobs = Job.objects.distinct().filter(
             (Q(title__icontains=search_query) | 
@@ -44,7 +53,8 @@ def index(request):
             Q(tags__in=tags)) &
             Q(location__icontains=location_query) &
             Q(model__icontains=model_query) &
-            Q(experience__icontains=experience_query) 
+            Q(experience__icontains=experience_query) &
+            Q(category__icontains=category_query) 
             ).order_by('-created')
 
     
@@ -67,6 +77,7 @@ def index(request):
         'location_query': location_query,
         'model_query': model_query,
         'experience_query': experience_query,
+        'category_query': category_query,
         'paginator': paginator,
         'time': date
     }
@@ -124,6 +135,9 @@ def about(request):
 
 def terms(request):
     return render(request, 'iamavailable/terms.html')
+
+def faq(request):
+    return render(request, 'iamavailable/faq.html')
 
 def contact(request):
     

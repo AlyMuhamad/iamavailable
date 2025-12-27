@@ -11,6 +11,9 @@ class Company(models.Model):
     location = models.CharField(max_length=100)
     description = models.TextField()
     
+    class Meta:
+        verbose_name_plural = 'Companies'
+    
     def __str__(self):
         return self.name
 
