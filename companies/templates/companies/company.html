@@ -47,7 +47,36 @@
         >
       </div>
       <div class="mb-5 about-cont">
-        <p class="fst-italic">{{company.description}}</p>
+        <p class="fst-italic mb-4">{{company.description}}</p>
+        <div class="d-flex flex-column gap-4">
+          {% if company.website %}
+          <div class="d-flex align-items-center gap-2">
+            <i class="fa-solid fa-earth-americas fs-4 text-secondary"></i>
+            <a href="{{company.website}}" class="text-decoration-none"
+              >{{company.website}}</a
+            >
+          </div>
+          {% endif %} {% if company.linkedIn %}
+          <div class="d-flex align-items-center gap-2">
+            <i class="fa-brands fa-square-linkedin fs-4 text-secondary"></i>
+            <a href="{{company.linkedIn}}" class="text-decoration-none"
+              >{{company.linkedIn}}</a
+            >
+          </div>
+          {% endif %} {% if company.email %}
+          <div class="d-flex align-items-center gap-2">
+            <i class="fa-solid fa-envelope fs-4 text-secondary"></i>
+            <a href="mailto:{{company.email}}" class="text-decoration-none"
+              >{{company.email}}</a
+            >
+          </div>
+          {% endif %} {% if company.size %}
+          <div class="d-flex align-items-center gap-2">
+            <i class="fa-solid fa-people-group fs-4 text-secondary"></i>
+            <p class="mb-0">{{company.size}} employees</p>
+          </div>
+          {% endif %}
+        </div>
       </div>
       <div class="d-flex gap-3 hidden jobs-cont">
         {% if jobs %}
@@ -102,7 +131,7 @@
               </li>
               {% endfor %}
             </ul>
-            <p>{{ job.description|truncatechars:300 }}</p>
+            <p>{{ job.description|safe|truncatechars:300 }}</p>
             <p style="font-size: 0.9rem">{{ job.timesince }} ago</p>
           </li>
           {% endfor %}
@@ -143,36 +172,36 @@
 
     {% comment %} NAVIGATION TABS {% endcomment %}
   const aboutBtn = document.querySelector('.about-btn');
-    const jobsBtn = document.querySelector('.jobs-btn');
+  const jobsBtn = document.querySelector('.jobs-btn');
 
-    const aboutCont = document.querySelector('.about-cont');
-    const jobsCont = document.querySelector('.jobs-cont');
+  const aboutCont = document.querySelector('.about-cont');
+  const jobsCont = document.querySelector('.jobs-cont');
 
-    aboutBtn.addEventListener('click', () => {
-      aboutBtn.classList.add('text-white', 'bg-dark');
-      jobsBtn.classList.remove('text-white', 'bg-dark');
+  aboutBtn.addEventListener('click', () => {
+    aboutBtn.classList.add('text-white', 'bg-dark');
+    jobsBtn.classList.remove('text-white', 'bg-dark');
 
-      aboutCont.classList.remove('hidden');
-      jobsCont.classList.add('hidden');
-    });
+    aboutCont.classList.remove('hidden');
+    jobsCont.classList.add('hidden');
+  });
 
-    jobsBtn.addEventListener('click', () => {
-      aboutBtn.classList.remove('text-white', 'bg-dark');
-      jobsBtn.classList.add('text-white', 'bg-dark');
+  jobsBtn.addEventListener('click', () => {
+    aboutBtn.classList.remove('text-white', 'bg-dark');
+    jobsBtn.classList.add('text-white', 'bg-dark');
 
-      aboutCont.classList.add('hidden');
-      jobsCont.classList.remove('hidden');
-    });
-    {% comment %} END {% endcomment %}
+    aboutCont.classList.add('hidden');
+    jobsCont.classList.remove('hidden');
+  });
+  {% comment %} END {% endcomment %}
 
-    const deleteBtn = document.querySelector('.delete-btn');
-    const confirmBtn = document.querySelector('.confirm-btn');
-    const cancelBtn = document.querySelector('.cancel-btn');
-    const deletePopup = document.querySelector('.delete-popup');
+  const deleteBtn = document.querySelector('.delete-btn');
+  const confirmBtn = document.querySelector('.confirm-btn');
+  const cancelBtn = document.querySelector('.cancel-btn');
+  const deletePopup = document.querySelector('.delete-popup');
 
-    deleteBtn.addEventListener('click', () => {
-      deletePopup.classList.remove('hidden');
-    });
+  deleteBtn.addEventListener('click', () => {
+    deletePopup.classList.remove('hidden');
+  });
 
     confirmBtn.addEventListener('click', () => {
       const id = deleteBtn.getAttribute('data-id');

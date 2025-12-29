@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from .models import Job, Tag, Saved, Application, Subscription
 from .forms import ApplicationForm, ContactForm
-from datetime import date
+from datetime import datetime, timedelta
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.core.mail import send_mail
@@ -22,7 +22,8 @@ def index(request):
     location_query = ''
     model_query = ''
     experience_query = ''
-    date_query = ''
+    date_query = datetime.now() - timedelta(days=1000)
+    days = 0
     category_query = ''
     
     if request.GET.get('search_query'):
@@ -38,7 +39,9 @@ def index(request):
         experience_query = request.GET.get('experience_query')
     
     if request.GET.get('date_query'):
-        date_query = request.GET.get('date_query')
+        days = request.GET.get('date_query')
+        now = datetime.now()
+        date_query = now - timedelta(days=int(days)) 
     
     if request.GET.get('category_query'):
         category_query = request.GET.get('category_query')
@@ -52,6 +55,7 @@ def index(request):
             Q(location__icontains=location_query) &
             Q(model__icontains=model_query) &
             Q(experience__icontains=experience_query) &
+            Q(created__gte=date_query) &
             Q(category__icontains=category_query) 
             ).order_by('-created')
     
@@ -79,8 +83,9 @@ def index(request):
         'model_query': model_query,
         'experience_query': experience_query,
         'category_query': category_query,
+        'date_query': date_query,
+        'days': days,
         'paginator': paginator,
-        'time': date,
         'applications': applications
     }
 

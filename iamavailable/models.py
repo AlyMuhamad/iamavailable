@@ -4,6 +4,8 @@ from companies.models import Company
 from users.models import Profile
 import uuid
 from django.utils import timesince
+from django_ckeditor_5.fields import CKEditor5Field
+
 
 
 # Create your models here.
@@ -46,7 +48,7 @@ class Job(models.Model):
     company = models.ForeignKey(Company,on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
-    description = models.TextField()
+    description = CKEditor5Field('description', config_name='extends')
     experience = models.CharField(max_length=50, choices=EXPERIENCE_CHOICES, default='Junior')
     tags = models.ManyToManyField('Tag', blank=True)
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default='Uncategorized')

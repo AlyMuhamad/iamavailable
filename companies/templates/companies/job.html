@@ -78,7 +78,7 @@
         {% endfor %}
       </ul>
       <p class="fst-italic">Published {{job.timesince}} ago</p>
-      <p class="mb-4">{{ job.description }}</p>
+      <p class="mb-4">{{ job.description|safe }}</p>
       {% if user.is_authenticated%}
       <div>
         <p class="fw-bold">To apply, Please send your CV, via</p>

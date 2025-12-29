@@ -85,7 +85,7 @@
               </li>
               {% endfor %}
             </ul>
-            <p>{{ job.description|truncatechars:300 }}</p>
+            <p>{{ job.description|safe|truncatechars:300 }}</p>
             <p class="mb-2 fst-italic" style="font-size: 0.9rem">
               {{job.timesince }} ago
             </p>
@@ -135,11 +135,10 @@
               value="{{date_query}}"
               name="date_query"
             >
-              <option value="" selected>Date posted</option>
-              <option value="Last 24 hours">Last 24 hours</option>
-              <option value="Last week">Last week</option>
-              <option value="Last month">Last month</option>
-              <option value="Any time">Any time</option>
+              <option value="">Date posted</option>
+              <option value="1">Last 24 hours</option>
+              <option value="7">Last week</option>
+              <option value="30">Last month</option>
             </select>
             <select
               class="form-select"

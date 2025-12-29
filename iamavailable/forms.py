@@ -2,13 +2,17 @@ from django import forms
 from .models import Job, Application, Contact
 from companies.models import Company
 from users.models import Profile 
-
+from django_ckeditor_5.widgets import CKEditor5Widget
 
 class JobForm(forms.ModelForm):
     company = forms.ModelChoiceField(queryset=Company.objects.all(), widget=forms.HiddenInput())
     class Meta:
         model = Job
         fields = ['title', 'location', 'company','description', 'experience', 'category','tags','salary', 'mode', 'model', 'number', 'email'] 
+        widgets = {
+            "description": CKEditor5Widget(attrs={"class": "django_ckeditor_5"}, config_name="custom"
+            )
+        }
 
 class ApplicationForm(forms.ModelForm):
     job = forms.ModelChoiceField(queryset=Job.objects.all(), widget=forms.HiddenInput())

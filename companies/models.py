@@ -10,6 +10,10 @@ class Company(models.Model):
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
     description = models.TextField()
+    website = models.URLField(max_length=300, blank=True, null=True)
+    linkedIn = models.URLField(max_length=300, blank=True, null=True)
+    email = models.EmailField(blank=True)
+    size = models.PositiveBigIntegerField(blank=True, null=True)
     
     class Meta:
         verbose_name_plural = 'Companies'
