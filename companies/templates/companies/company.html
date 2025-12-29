@@ -50,6 +50,8 @@
         <p class="fst-italic">{{company.description}}</p>
       </div>
       <div class="d-flex gap-3 hidden jobs-cont">
+        {% if jobs %}
+
         <ul class="list-unstyled w-100">
           {% for job in jobs %}
           <li class="shadow-sm p-3 mb-5 bg-white rounded job-card">
@@ -105,6 +107,9 @@
           </li>
           {% endfor %}
         </ul>
+        {% else %}
+        <p>You haven't posted any jobs yet</p>
+        {% endif %}
       </div>
       <div class="hidden delete-popup">
         <div

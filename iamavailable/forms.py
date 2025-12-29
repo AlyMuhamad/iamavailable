@@ -8,7 +8,7 @@ class JobForm(forms.ModelForm):
     company = forms.ModelChoiceField(queryset=Company.objects.all(), widget=forms.HiddenInput())
     class Meta:
         model = Job
-        fields = ['title', 'location', 'company','description', 'experience','tags','salary', 'mode', 'model', 'number', 'email'] 
+        fields = ['title', 'location', 'company','description', 'experience', 'category','tags','salary', 'mode', 'model', 'number', 'email'] 
 
 class ApplicationForm(forms.ModelForm):
     job = forms.ModelChoiceField(queryset=Job.objects.all(), widget=forms.HiddenInput())

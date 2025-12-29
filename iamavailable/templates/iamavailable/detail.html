@@ -147,7 +147,9 @@
               </div>
               <div>
                 <p class="fw-bold mb-1">Application status</p>
-                <p class="border no-border p-2 rounded">
+                <p
+                  class="border no-border p-2 rounded fw-bold {%if application.status == 'Accepted'%}text-success{%else%}text-danger{%endif%}"
+                >
                   {{application.status}}
                 </p>
               </div>
@@ -171,6 +173,33 @@
       <a href="{% url 'login' %}" class="text-decoration-none fw-bold"
         >Please login to apply for this position</a
       >
+      {% endif %} {% if similar %}
+      <div class="mt-5">
+        <p class="fw-bold fs-5">More jobs like this</p>
+        <ul class="list-unstyled d-flex gap-4 similar-jobs">
+          {% for job in similar %}
+          <li class="shadow-sm p-3 mb-4 bg-white rounded">
+            <a
+              href="{% url 'job_detail' job.id %}"
+              class="text-decoration-none fw-bold fs-4"
+            >
+              {{ job.title }}
+            </a>
+            <p class="fw-bold">{{ job.company }}</p>
+            <p>{{ job.description|truncatechars:80 }}</p>
+            <p class="mb-2 fst-italic" style="font-size: 0.9rem">
+              {{job.timesince }} ago
+            </p>
+            {%for application in applications%} {%if application.job == job%}
+            <div class="d-flex gap-1 align-items-center text-success fw-bold">
+              <i class="fa-solid fa-circle-check"></i>
+              <p class="mb-0">You have applied for this job</p>
+            </div>
+            {%endif%} {%endfor%}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
       {% endif %}
     </div>
     {% endblock %}

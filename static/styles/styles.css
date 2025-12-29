@@ -247,6 +247,10 @@ option:not(:first-of-type) {
   .copy-popup {
     padding: 0.5rem !important;
   }
+
+  .similar-jobs {
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 29.6875em) {

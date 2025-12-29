@@ -145,8 +145,17 @@ def getApplicant(request, id):
     applicant = get_object_or_404(Profile, id=id)
     application = get_object_or_404(Application, applicant=applicant)
     
+    decided = False
+    
+    if request.method == 'POST' and request.POST['decision'] != '':
+        application.status = request.POST['decision']
+        application.save()
+        
+        decided = True
+    
     context = {
         'application': application,
+        'decided': decided
     } 
     
     return render(request, 'companies/applicant.html', context)

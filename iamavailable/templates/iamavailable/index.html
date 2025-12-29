@@ -89,6 +89,12 @@
             <p class="mb-2 fst-italic" style="font-size: 0.9rem">
               {{job.timesince }} ago
             </p>
+            {%for application in applications%} {%if application.job == job %}
+            <div class="d-flex gap-1 align-items-center text-success fw-bold">
+              <i class="fa-solid fa-circle-check"></i>
+              <p class="mb-0">You have applied for this job</p>
+            </div>
+            {%endif%} {%endfor%}
           </li>
           {% endfor %}
         </ul>

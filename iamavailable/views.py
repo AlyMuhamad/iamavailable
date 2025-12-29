@@ -45,8 +45,6 @@ def index(request):
     
     tags = Tag.objects.filter(name__icontains=search_query)
     
-    print(request.GET)
-    
     jobs = Job.objects.distinct().filter(
             (Q(title__icontains=search_query) | 
             Q(description__icontains=search_query) |
@@ -56,7 +54,10 @@ def index(request):
             Q(experience__icontains=experience_query) &
             Q(category__icontains=category_query) 
             ).order_by('-created')
-
+    
+    applications = ''
+    if request.user.is_authenticated:
+        applications = Application.objects.filter(applicant=request.user.profile)
     
     page = request.GET.get('page')
     results = 10
@@ -79,13 +80,15 @@ def index(request):
         'experience_query': experience_query,
         'category_query': category_query,
         'paginator': paginator,
-        'time': date
+        'time': date,
+        'applications': applications
     }
 
     return render(request, 'iamavailable/index.html', context)
 
 def job_detail(request, id):
     job = get_object_or_404(Job, id=id)
+    similar = Job.objects.filter(category=job.category).exclude(id=job.id)[0:3]
     
     if request.user.is_authenticated:
         authenticated = 1
@@ -102,10 +105,14 @@ def job_detail(request, id):
             Q(applicant=request.user.profile) &
             Q(job=job) 
         )
+        
+        applications = Application.objects.filter(applicant=request.user.profile)
+        
     else:
         authenticated = 0
         saved = {}
         applied = {}
+        applications = ''
     
     if request.method == 'POST':
         post_data = request.POST.copy()
@@ -124,7 +131,9 @@ def job_detail(request, id):
         'job': job,
         'saved': saved,
         'applied': applied,
-        'form': form
+        'form': form,
+        'similar': similar,
+        'applications': applications
     }
     
     return render(request, 'iamavailable/detail.html', context)
