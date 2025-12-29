@@ -1,0 +1,71 @@
+{% extends '_base.html' %} {% load static %}
+<html>
+  <head>
+    {% block title %}
+    <title>{{application.job.title}} - IAmAvailable</title>
+    {% endblock %}
+  </head>
+  <body>
+    {% block content %}
+    <div class="container" style="min-height: 60vh">
+      <div
+        class="shadow-sm p-3 mb-4 bg-white rounded d-flex align-items-center gap-4 justify-content-between"
+      >
+        <div>
+          <a
+            href="{% url 'job_detail' application.job.id %}"
+            class="text-decoration-none fw-bold fs-4"
+          >
+            {{ application.job.title }}
+          </a>
+          <p class="fw-bold">{{ job.company }}</p>
+          <p>{{ application.job.description|safe|truncatechars:100 }}</p>
+          <p class="mb-2 fst-italic" style="font-size: 0.9rem">
+            {{application.job.timesince }} ago
+          </p>
+        </div>
+        <a
+          href="{% url 'job_detail' application.job.id %}"
+          class="text-decoration-none fw-bold border border-primary p-2 ps-3 pe-3 rounded"
+          >View job</a
+        >
+      </div>
+      <div class="mb-4">
+        <div>
+          <p class="fw-bold mb-1">
+            Why do you think you are the best candidate for this job?
+          </p>
+          <p class="border no-border p-2 rounded">
+            {{application.suitability}}
+          </p>
+        </div>
+        <div>
+          <p class="fw-bold mb-1">
+            Resume/CV link, Please upload your resume on Googledrive / Dropbox /
+            Mediafire etc
+          </p>
+          <p class="border no-border p-2 rounded">
+            <a href="{{application.resume}}" class="text-decoration-none"
+              >{{application.resume}}</a
+            >
+          </p>
+        </div>
+        <div>
+          <p class="fw-bold mb-1">What is your expected salary?</p>
+          <p class="border no-border p-2 rounded">
+            {{application.expected_salary}}
+          </p>
+        </div>
+        <div>
+          <p class="fw-bold mb-1">Application status</p>
+          <p
+            class="border no-border p-2 rounded fw-bold {%if application.status == 'Accepted'%}text-success{%else%}text-danger{%endif%}"
+          >
+            {{application.status}}
+          </p>
+        </div>
+      </div>
+    </div>
+    {% endblock %}
+  </body>
+</html>

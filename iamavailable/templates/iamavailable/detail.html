@@ -115,48 +115,23 @@
           <i class="fa-solid fa-check fs-3"></i>
           <p class="fw-bold">You have applied for this job</p>
         </div>
-        <div>
-          <p class="mt-4 fw-bold fs-5">Your application</p>
-          <ul class="list-unstyled">
-            {% for application in applied %}
-            <li>
-              <div>
-                <p class="fw-bold mb-1">
-                  Why do you think you are the best candidate for this job?
-                </p>
-                <p class="border no-border p-2 rounded">
-                  {{application.suitability}}
-                </p>
-              </div>
-              <div>
-                <p class="fw-bold mb-1">
-                  Resume/CV link, Please upload your resume on Googledrive /
-                  Dropbox / Mediafire etc
-                </p>
-                <p class="border no-border p-2 rounded">
-                  <a href="{{application.resume}}" class="text-decoration-none"
-                    >{{application.resume}}</a
-                  >
-                </p>
-              </div>
-              <div>
-                <p class="fw-bold mb-1">What is your expected salary?</p>
-                <p class="border no-border p-2 rounded">
-                  {{application.expected_salary}}
-                </p>
-              </div>
-              <div>
-                <p class="fw-bold mb-1">Application status</p>
-                <p
-                  class="border no-border p-2 rounded fw-bold {%if application.status == 'Accepted'%}text-success{%else%}text-danger{%endif%}"
-                >
-                  {{application.status}}
-                </p>
-              </div>
-            </li>
-            {% endfor %}
-          </ul>
+        {% for application in applied %}
+        <div
+          class="shadow-sm p-3 mb-4 bg-white rounded d-flex align-items-center gap-4 justify-content-between"
+        >
+          <div>
+            <p class="mb-0 text-decoration-none fw-bold fs-4">
+              {{ application.job.title }}
+            </p>
+            <p class="mb-0">{{application.timesince}}</p>
+          </div>
+          <a
+            href="{% url 'singleApplication' application.id %}"
+            class="text-decoration-none fw-bold border border-primary p-2 ps-3 pe-3 rounded"
+            >View application</a
+          >
         </div>
+        {% endfor %}
       </div>
       {% else %}
       <div>

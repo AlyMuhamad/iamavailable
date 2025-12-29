@@ -159,14 +159,23 @@ def singleChat(request, id):
 
 
 @login_required(login_url='login')
-def history(request):
+def applications(request):
     applications =  Application.objects.filter(applicant=request.user.profile)
     context = {
         'applications': applications,
         'count': applications.count()
     }
     
-    return render (request, 'users/history.html', context)
+    return render (request, 'users/applications.html', context)
+
+@login_required(login_url='login')
+def singleApplication(request, id):
+    application =  get_object_or_404(Application, id=id)
+    context = {
+        'application': application,
+    }
+    
+    return render (request, 'users/singleApplication.html', context)
 
 @login_required(login_url='login')
 def personalInfo(request):

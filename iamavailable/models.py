@@ -54,7 +54,7 @@ class Job(models.Model):
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default='Uncategorized')
     mode = models.CharField(max_length=50, choices=MODE_CHOICES, default='Full-time')
     model = models.CharField(max_length=50, choices=MODEL_CHOICES, default='Onsite')
-    salary = models.PositiveBigIntegerField()
+    salary = models.PositiveBigIntegerField(blank=True, null=True)
     number = models.CharField(blank=True, null=True, max_length=11)
     email = models.EmailField(blank=True)
 
@@ -104,6 +104,10 @@ class Application(models.Model):
     
     def __str__(self):
         return f"{self.job} | {self.applicant}"
+    
+    @property
+    def timesince(self):
+        return timesince.timesince(self.created)
     
 class Subscription(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
