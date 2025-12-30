@@ -5,8 +5,9 @@ from django.contrib.auth.decorators import login_required
 from .models import Company
 from .forms import CompanyForm
 from iamavailable.forms import JobForm
-from iamavailable.models import Job, Application
+from iamavailable.models import Job, Application, Notification
 from users.models import Profile
+
 
 # Create your views here.
 def companyDetail(request, id):
@@ -56,6 +57,9 @@ def editCompany(request):
     company = Company.objects.get(owner=request.user.profile)
     form = CompanyForm(instance=company)
     
+    if not company.verified:
+        return redirect(reverse('my_company'))
+    
     if request.method == "POST":
         form = CompanyForm(request.POST, request.FILES, instance=company)
         if form.is_valid():
@@ -70,6 +74,9 @@ def editCompany(request):
 @login_required(login_url='login')
 def createJob(request):
     company = Company.objects.get(owner=request.user.profile)
+    
+    if not company.verified:
+        return redirect(reverse('my_company'))
     
     if company.owner != request.user.profile:
         return redirect(reverse('home'))
@@ -150,6 +157,9 @@ def getApplicant(request, id):
     if request.method == 'POST' and request.POST['decision'] != '':
         application.status = request.POST['decision']
         application.save()
+        
+        # HERE
+        Notification.objects.create(applicant=application.applicant, job=application.job)
         
         decided = True
     

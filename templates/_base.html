@@ -57,8 +57,22 @@
           {% if request.user.is_authenticated %}
           <div class="d-flex align-items-center gap-4 profile-options">
             <a href="{% url 'notification' %}"
-              ><i class="fa-solid fa-bell text-black-50 fs-5"></i
-            ></a>
+              ><div class="position-relative">
+                <i class="fa-solid fa-bell text-black-50 fs-5"></i>
+                {% if notificationCount != 0 %}
+                <div
+                  class="d-flex justify-content-center align-items-center position-absolute top-0 start-100 translate-middle w-75 h-75 bg-danger rounded-circle"
+                >
+                  <p
+                    class="text-decoration-none text-white p-0 m-0"
+                    style="font-size: 0.8rem"
+                  >
+                    {{notificationCount}}
+                  </p>
+                </div>
+                {% endif %}
+              </div>
+            </a>
             <a href="{% url 'applications' %}"
               ><i class="fa-solid fa-clock-rotate-left text-black-50 fs-5"></i
             ></a>

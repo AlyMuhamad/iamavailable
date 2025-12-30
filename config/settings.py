@@ -67,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'iamavailable.views.notificationCount' #updated
             ],
         },
     },
@@ -215,21 +216,10 @@ CKEDITOR_5_CONFIGS = {
             'blockQuote',
         ],
         'toolbar': {
-            'items': ['heading', '|', 'outdent', 'indent', '|', 'bold', 'italic', 'link', 'underline', 'strikethrough',
-                    'code','subscript', 'superscript', '|',
-                    'bulletedList', 'numberedList', 'todoList', '|',  'blockQuote', '|',
-                    'fontSize',
+            'items': ['bold', 'italic', 'link', 'underline', 'strikethrough', '|', 'bulletedList', 'numberedList', '|',  'blockQuote'
                     ],
             'shouldNotGroupWhenFull': 'true'
         },
-        'heading' : {
-            'options': [
-                { 'model': 'paragraph', 'title': 'Paragraph', 'class': 'ck-heading_paragraph' },
-                { 'model': 'heading1', 'view': 'h1', 'title': 'Heading 1', 'class': 'ck-heading_heading1' },
-                { 'model': 'heading2', 'view': 'h2', 'title': 'Heading 2', 'class': 'ck-heading_heading2' },
-                { 'model': 'heading3', 'view': 'h3', 'title': 'Heading 3', 'class': 'ck-heading_heading3' }
-            ]
-        }
     },
     'list': {
         'properties': {

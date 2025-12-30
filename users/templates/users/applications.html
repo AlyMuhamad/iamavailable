@@ -27,14 +27,15 @@
             </li>
             {% endfor %}
           </ul>
-          <p>{{ application.job.description|safe|truncatechars:100 }}</p>
+          <p>{{ application.job.description|safe|truncatechars_html:100 }}</p>
           <p class="mb-4 fst-italic" style="font-size: 0.9rem">
             {{application.job.timesince }} ago
           </p>
-          <div class="d-flex gap-1 align-items-center text-success fw-bold">
-            <i class="fa-solid fa-circle-check"></i>
-            <p class="mb-0">You have applied for this job</p>
-          </div>
+          <p
+            class="fw-bold mb-0 {%if application.status == 'Accepted'%}text-success{%elif application.status == 'Rejected'%}text-danger {% else %}text-muted{%endif%}"
+          >
+            {{application.status}}
+          </p>
         </li>
         {% endfor %}
       </ul>

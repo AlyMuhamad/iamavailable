@@ -65,11 +65,13 @@
           <i class="fa-solid fa-briefcase text-black-50"></i>
           <p class="m-0">{{ job.model }}</p>
         </div>
+        {% if job.salary %}
         <p class="mb-0 fw-bold text-black-50 separator">|</p>
         <div class="d-flex gap-2 align-items-center">
           <i class="fa-solid fa-money-bill text-black-50"></i>
           <p class="mb-0">{{ job.salary }}</p>
         </div>
+        {% endif %}
       </div>
       <ul class="d-flex gap-2 mb-2 list-unstyled">
         {% for tag in job.tags.all %}

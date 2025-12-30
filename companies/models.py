@@ -14,6 +14,7 @@ class Company(models.Model):
     linkedIn = models.URLField(max_length=300, blank=True, null=True)
     email = models.EmailField(blank=True)
     size = models.PositiveBigIntegerField(blank=True, null=True)
+    verified = models.BooleanField(default=False)
     
     class Meta:
         verbose_name_plural = 'Companies'

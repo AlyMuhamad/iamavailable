@@ -7,7 +7,7 @@ from django.http import JsonResponse
 from django.contrib import messages
 from .forms import CustomUserCreationForm, ProfileForm
 from companies.models import Company, Room, Message
-from iamavailable.models import Job, Saved, Application
+from iamavailable.models import Job, Saved, Application, Notification
 
 # Create your views here.
 def registerUser(request):
@@ -101,8 +101,6 @@ def saved(request):
         'count': saved.count()
     }
     
-    print(saved)
-    
     return render (request, 'users/saved.html', context)
 
 
@@ -123,7 +121,13 @@ def saveJob(request, id):
 
 @login_required(login_url='login')
 def notification(request):
-    return render (request, 'users/notification.html')
+    notifications = Notification.objects.filter(applicant=request.user.profile)
+    context = {
+        'notifications': notifications,
+        'count': notifications.count()
+    }
+    
+    return render (request, 'users/notification.html', context)
 
 
 @login_required(login_url='login')

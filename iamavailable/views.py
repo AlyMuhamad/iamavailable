@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.http import JsonResponse
 from django.db.models import Q
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from .models import Job, Tag, Saved, Application, Subscription
+from .models import Job, Tag, Saved, Application, Subscription, Notification
 from .forms import ApplicationForm, ContactForm
 from datetime import datetime, timedelta
 from django.core.exceptions import ValidationError
@@ -15,6 +15,13 @@ import json
 
 # Environment variables
 load_dotenv()
+
+# Global data
+def notificationCount(request):
+    notifications = Notification.objects.filter((Q(applicant=request.user.profile) & Q(read=False)))
+
+    return {"notificationCount": notifications.count()}
+
 
 # Create your views here.
 def index(request):

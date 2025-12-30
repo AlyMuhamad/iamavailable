@@ -6,8 +6,6 @@ import uuid
 from django.utils import timesince
 from django_ckeditor_5.fields import CKEditor5Field
 
-
-
 # Create your models here.
 class Job(models.Model):
     MODE_CHOICES = (
@@ -126,4 +124,17 @@ class Contact(models.Model):
     
     def __str__(self):
         return f"{self.name} | {self.email}"
+
+class Notification(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+    created = models.DateTimeField(auto_now_add=True)
+    applicant = models.ForeignKey(Profile,on_delete=models.CASCADE)
+    job = models.ForeignKey(Job,on_delete=models.CASCADE)
+    read = models.BooleanField(default=False)
     
+    def __str__(self):
+        return f"{self.job} | {self.applicant}"
+    
+    @property
+    def timesince(self):
+        return timesince.timesince(self.created)

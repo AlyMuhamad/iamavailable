@@ -85,7 +85,7 @@
               </li>
               {% endfor %}
             </ul>
-            <p>{{ job.description|safe|truncatechars:300 }}</p>
+            <p>{{ job.description|safe|truncatechars_html:250 }}</p>
             <p class="mb-2 fst-italic" style="font-size: 0.9rem">
               {{job.timesince }} ago
             </p>

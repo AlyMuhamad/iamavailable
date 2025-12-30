@@ -6,7 +6,17 @@
     {% endblock %}
   </head>
   <body>
-    {% block content %}
+    {% block content %} {% if not company.verified %}
+    <div
+      class="container mb-5 d-flex align-items-center justify-content-center"
+      style="min-height: 50vh"
+    >
+      <div class="d-flex flex-column align-items-center">
+        <h4>Your company profile is under verification</h4>
+        <p>This may take a while, please be patient</p>
+      </div>
+    </div>
+    {% else %}
     <div class="container mb-5" style="min-height: 50vh">
       <div class="d-flex justify-content-between mb-3">
         <div class="d-flex gap-3">
@@ -131,7 +141,7 @@
               </li>
               {% endfor %}
             </ul>
-            <p>{{ job.description|safe|truncatechars:300 }}</p>
+            <p>{{ job.description|safe|truncatechars_html:300 }}</p>
             <p style="font-size: 0.9rem">{{ job.timesince }} ago</p>
           </li>
           {% endfor %}
@@ -163,7 +173,7 @@
         </div>
       </div>
     </div>
-    {% endblock %}
+    {% endif %} {% endblock %}
   </body>
 </html>
 
