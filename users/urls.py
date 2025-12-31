@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from users.views import loginUser, logoutUser, registerUser, userAccount, editAccount, saved, notification, chat, singleChat, saveJob, applications, singleApplication, personalInfo
+from users.views import loginUser, logoutUser, registerUser, userAccount, editAccount, saved, notification, chat, singleChat, saveJob, applications, singleApplication, personalInfo, readNotification
 
 urlpatterns = [
     path('login/', loginUser, name='login'),
@@ -24,6 +24,7 @@ urlpatterns = [
     path('personail-info/edit', editAccount, name='edit-account'),
     path('saved/', saved, name='saved'),
     path('notification/', notification, name='notification'),
+    path('notification/read/', readNotification, name='readNotification'),
     path('chat/', chat, name='chat'),
     path('applications/', applications, name='applications'),
     path('application/<str:id>/', singleApplication, name='singleApplication'),

@@ -11,13 +11,21 @@
     <div class="container" style="min-height: 60vh">
       <div class="d-flex align-items-center justify-content-between mb-3">
         <p class="fw-bold fs-5 mb-0">Your notifications ({{count}})</p>
-        <p class="mb-0">Mark all as read</p>
+        {% if count != 0 %}
+        <form action="" method="POST">
+          {% csrf_token %}
+          <button class="border-0 bg-transparent text-primary read-btn">
+            Mark all as read
+          </button>
+        </form>
+        {% endif %}
       </div>
       <ul class="list-unstyled">
         {% for notification in notifications %}
         <li
-          class="d-flex align-items-center justify-content-between mb-2 p-2 pt-3 pb-3 {%if not notificaton.read %}bg-light shadow-sm{%endif%}"
+          class="notification-box d-flex align-items-center justify-content-between mb-2 p-3 border-bottom {%if not notification.read %}bg-light shadow-sm rounded{%endif%}"
         >
+          {% if notification.type == 'Applicant' %}
           <div>
             <a
               href='{% url "company_detail" notification.job.company.id %}'
@@ -32,7 +40,26 @@
             >
             application
           </div>
-          <p class="mb-0 fs-6 text-muted">{{notification.timesince}}</p>
+          {% else %}
+          <div>
+            <a
+              href='{% url "company_detail" notification.job.company.id %}'
+              class="text-decoration-none"
+              >{{notification.applicant}}</a
+            >
+            has just applied to your
+            <a
+              href="{% url 'job_detail' notification.job.id %}"
+              class="text-decoration-none"
+              >{{notification.job}}</a
+            >
+            job
+          </div>
+
+          {% endif %}
+          <p class="mb-0 text-muted" style="font-size: 0.9rem">
+            {{notification.timesince}}
+          </p>
         </li>
         {% endfor %}
       </ul>
@@ -40,3 +67,46 @@
     {% endblock %}
   </body>
 </html>
+{% block js %}
+<script>
+  const notificationBox = document.querySelectorAll('.notification-box')
+  const readBtn = document.querySelector('.read-btn');
+  readBtn.addEventListener('click', (e) => {
+    e.preventDefault()
+    readNotifications();
+  });
+
+  {% comment %} HELPER FUNCTIONS {% endcomment %}
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === name + '=') {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+
+  async function readNotifications() {
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'X-CSRFToken': getCookie('csrftoken'),
+        'Content-Type': 'application/json',
+      },
+    };
+
+    try {
+      const res = await fetch(`/account/notification/read/`, requestOptions);
+      if(res.status == 200){}
+    } catch (err) {
+      console.log(err);
+    }
+  }
+</script>
+{% endblock %}

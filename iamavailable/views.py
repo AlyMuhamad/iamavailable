@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.db.models import Q
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from .models import Job, Tag, Saved, Application, Subscription, Notification
+from companies.models import Company
 from .forms import ApplicationForm, ContactForm
 from datetime import datetime, timedelta
 from django.core.exceptions import ValidationError
@@ -18,7 +19,19 @@ load_dotenv()
 
 # Global data
 def notificationCount(request):
-    notifications = Notification.objects.filter((Q(applicant=request.user.profile) & Q(read=False)))
+    if not request.user.is_authenticated:
+        return {}
+    
+    applicant = request.user.profile
+    try:
+        company = Company.objects.get(owner=applicant)
+        if company:
+            notifications = Notification.objects.filter(
+                Q(Q(company=company) & Q(type='Company') & Q(read=False)) |
+                Q(Q(applicant=applicant) & Q(type='Applicant') & Q(read=False))
+            )           
+    except:
+        notifications = Notification.objects.filter(applicant=applicant, type='Applicant', read=False)
 
     return {"notificationCount": notifications.count()}
 
@@ -105,9 +118,12 @@ def job_detail(request, id):
     if request.user.is_authenticated:
         authenticated = 1
         
-        if job.company==request.user.profile.company:
-            return redirect('get_job', id=job.id)
-    
+        try:
+            if job.company==request.user.profile.company:
+                return redirect('get_job', id=job.id)
+        except:
+            pass
+        
         saved = Saved.objects.filter(
             Q(profile=request.user.profile) &
             Q(job=job) 
@@ -133,6 +149,9 @@ def job_detail(request, id):
         form = ApplicationForm(post_data)
         if form.is_valid():
             form.save()
+            
+            Notification.objects.create(applicant=request.user.profile, job=job, company=job.company, type='Company')
+            
             return redirect('job_detail', id=job.id)
             
     else:

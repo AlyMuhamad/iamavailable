@@ -14,9 +14,12 @@ def companyDetail(request, id):
     company = get_object_or_404(Company, id=id)
     
     if request.user.is_authenticated:
-        if company == request.user.profile.company:
-            return redirect(reverse('my_company'))
-    
+        try:
+            if company == request.user.profile.company:
+                return redirect(reverse('my_company'))
+        except:
+            pass
+
     context = {
         'company': company,
         'jobs': Job.objects.filter(company__id=id)
@@ -158,8 +161,7 @@ def getApplicant(request, id):
         application.status = request.POST['decision']
         application.save()
         
-        # HERE
-        Notification.objects.create(applicant=application.applicant, job=application.job)
+        Notification.objects.create(applicant=application.applicant, job=application.job, company=application.job.company, type='Applicant')
         
         decided = True
     

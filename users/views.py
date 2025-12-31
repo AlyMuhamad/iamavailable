@@ -121,7 +121,8 @@ def saveJob(request, id):
 
 @login_required(login_url='login')
 def notification(request):
-    notifications = Notification.objects.filter(applicant=request.user.profile)
+    notifications = getNotifications(request)
+        
     context = {
         'notifications': notifications,
         'count': notifications.count()
@@ -129,6 +130,14 @@ def notification(request):
     
     return render (request, 'users/notification.html', context)
 
+@login_required(login_url='login')
+def readNotification(request):
+    notifications = getNotifications(request)
+
+    for notification in notifications:
+        notification.read = True
+        notification.save()
+    return JsonResponse({'notifications': 'All notifications are read now'})
 
 @login_required(login_url='login')
 def chat(request):
@@ -190,7 +199,7 @@ def personalInfo(request):
     
     return render (request, 'users/personalInfo.html', context)
 
-# Helper functions
+# Helper function
 def getChats(request):
     profile = request.user.profile
     company = Company.objects.filter(owner=profile)
@@ -202,3 +211,19 @@ def getChats(request):
         companyAccount = False
     
     return rooms, companyAccount
+
+# Helper function
+def getNotifications(request):
+    applicant = request.user.profile
+    try:
+        company = Company.objects.get(owner=applicant)
+        if company:
+            notifications = Notification.objects.filter(
+                Q(Q(company=company) & Q(type='Company')) |
+                Q(Q(applicant=applicant) & Q(type='Applicant'))
+            ).order_by('-created')            
+    except:
+        notifications = Notification.objects.filter(applicant=applicant, type='Applicant').order_by('-created')
+        
+    return notifications
+

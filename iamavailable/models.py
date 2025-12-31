@@ -126,10 +126,17 @@ class Contact(models.Model):
         return f"{self.name} | {self.email}"
 
 class Notification(models.Model):
+    TYPE_CHOICES = (
+        ('Applicant', 'Applicant'),
+        ('Company', 'Company'),
+    )
+    
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
     created = models.DateTimeField(auto_now_add=True)
     applicant = models.ForeignKey(Profile,on_delete=models.CASCADE)
     job = models.ForeignKey(Job,on_delete=models.CASCADE)
+    company = models.ForeignKey(Company,on_delete=models.CASCADE, blank=True, null=True)
+    type = models.CharField(max_length=50, choices=TYPE_CHOICES, default='Undecided')
     read = models.BooleanField(default=False)
     
     def __str__(self):
