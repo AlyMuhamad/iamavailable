@@ -97,9 +97,9 @@ class Application(models.Model):
     suitability = models.TextField()
     resume = models.URLField(max_length=300)
     expected_salary = models.PositiveBigIntegerField()
+    notice = models.CharField(max_length=200, blank=True, null=True)
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='Undecided')
-    
-    
+
     def __str__(self):
         return f"{self.job} | {self.applicant}"
     

@@ -37,10 +37,12 @@
           </div>
         </div>
         <div class="w-100">
+          {% if application.applicant.bio %}
           <div>
             <p class="fw-bold">Bio</p>
             <p>{{application.applicant.bio}}</p>
           </div>
+          {% endif %}
           <div>
             <p class="fw-bold mb-1">
               Why do you think you are the best candidate for this job?

@@ -69,11 +69,12 @@
 </html>
 {% block js %}
 <script>
-  const notificationBox = document.querySelectorAll('.notification-box')
+  const notificationBoxes = document.querySelectorAll('.notification-box')
+  const countBox = document.querySelector('.count-box')
   const readBtn = document.querySelector('.read-btn');
   readBtn.addEventListener('click', (e) => {
     e.preventDefault()
-    readNotifications();
+    readNotifications()
   });
 
   {% comment %} HELPER FUNCTIONS {% endcomment %}
@@ -103,9 +104,14 @@
 
     try {
       const res = await fetch(`/account/notification/read/`, requestOptions);
-      if(res.status == 200){}
+      if(res.status == 200){
+        notificationBoxes.forEach(box => {
+          box.classList.remove('shadow-sm', 'bg-light', 'rounded')
+        })
+        countBox.remove()
+      }
     } catch (err) {
-      console.log(err);
+        console.log(err);
     }
   }
 </script>

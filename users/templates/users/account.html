@@ -7,7 +7,7 @@
   </head>
   <body>
     {% block content %}
-    <div class="container d-flex flex-column mb-5">
+    <div class="container d-flex flex-column mb-5" style="min-height: 55vh">
       <div
         class="position-relative align-self-center w-100 d-flex justify-content-center"
       >
@@ -18,13 +18,11 @@
           height="160"
         />
       </div>
-
       <a
         href="{% url 'applications' %}"
         class="text-decoration-none p-2 fw-bold text-dark"
         >Applications</a
       >
-
       <a
         href="{% url 'personal-info' %}"
         class="text-decoration-none p-2 fw-bold text-dark"

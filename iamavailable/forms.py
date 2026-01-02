@@ -19,11 +19,12 @@ class ApplicationForm(forms.ModelForm):
     applicant = forms.ModelChoiceField(queryset=Profile.objects.all(), widget=forms.HiddenInput())
     class Meta:
         model = Application
-        fields = ['job', 'applicant' ,'suitability', 'resume', 'expected_salary']
+        fields = ['job', 'applicant' ,'suitability', 'resume', 'expected_salary', 'notice']
         labels = {
             'suitability': 'Why do you think you are the best candidate for this job?',
             'resume': 'Resume/CV link, Please upload your resume on Googledrive / Dropbox / Mediafire etc',
-            'expected_salary': 'What is your expected salary?'
+            'expected_salary': 'What is your expected salary?',
+            'notice': 'What is your notice period?'
         }
         
 class ContactForm(forms.ModelForm):

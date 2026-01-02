@@ -59,7 +59,7 @@
         <div>
           <p class="fw-bold mb-1">Application status</p>
           <p
-            class="border no-border p-2 rounded fw-bold {%if application.status == 'Accepted'%}text-success{%else%}text-danger{%endif%}"
+            class="border no-border p-2 rounded fw-bold {%if application.status == 'Accepted'%}text-success{%elif application.status == 'Rejected'%}text-danger {% else %}text-muted{%endif%}"
           >
             {{application.status}}
           </p>
