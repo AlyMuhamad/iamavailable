@@ -1,0 +1,63 @@
+{% load static %}
+
+<div class="shadow-sm mb-5 bg-white">
+  <div class="navbar container ps-3 pe-3">
+    <div class="d-flex align-items-center">
+      <a
+        href=" {% url 'home' %}"
+        class="text-decoration-none fs-4 fw-bold text-dark"
+        >IAmAvailable</a
+      >
+      {% if request.user.is_authenticated %}
+      <a
+        href="{% url 'create_company' %}"
+        class="text-decoration-none text-dark employer-link"
+        >Employers | Post job</a
+      >
+      {% endif %}
+    </div>
+    <div class="d-flex gap-3 align-items-center">
+      {% if request.user.is_authenticated %}
+      <div class="d-flex align-items-center gap-4 profile-options">
+        <a href="{% url 'notification' %}"
+          ><div class="position-relative">
+            <i class="fa-solid fa-bell text-black-50 fs-5"></i>
+            {% if notificationCount != 0 %}
+            <div
+              class="count-box d-flex justify-content-center align-items-center position-absolute top-0 start-100 translate-middle w-75 h-75 bg-danger rounded-circle"
+            >
+              <p
+                class="text-decoration-none text-white p-0 m-0"
+                style="font-size: 0.8rem"
+              >
+                {{notificationCount}}
+              </p>
+            </div>
+            {% endif %}
+          </div>
+        </a>
+        <a href="{% url 'applications' %}"
+          ><i class="fa-solid fa-clock-rotate-left text-black-50 fs-5"></i
+        ></a>
+        <a href="{% url 'saved' %}"
+          ><i class="fa-solid fa-bookmark text-black-50 fs-5"></i
+        ></a>
+        <a href=" {% url 'account' %}" class="text-decoration-none p-2 rounded">
+          <img
+            src="{% static 'images/profiles/default-profile.jpg' %}"
+            class="rounded-circle align-self-center profile-picture"
+            width="50"
+            height="50"
+          />
+        </a>
+      </div>
+      {% else %}
+      <a
+        href="{% url 'account_login' %}"
+        class="text-decoration-none text-white bg-dark p-2 ps-4 pe-4 rounded"
+        >Login</a
+      >
+      {% endif %}
+    </div>
+  </div>
+</div>

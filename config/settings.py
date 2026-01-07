@@ -37,6 +37,11 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap4",
     "django_ckeditor_5",
+    "django.contrib.sites",
+    "allauth",
+    "allauth.account",
+    'allauth.socialaccount',
+    "allauth.socialaccount.providers.google",
 
     # LOCAL APP
     'iamavailable.apps.IamavailableConfig',
@@ -53,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware'
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -123,14 +129,16 @@ USE_I18N = True
 
 USE_TZ = True
 
-EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
-EMAIL_HOST = os.getenv('EMAIL_HOST')
-EMAIL_PORT = os.getenv('EMAIL_PORT')
-EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS')
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
-EMAIL_HOST_PASSWORD =  os.getenv('EMAIL_HOST_PASSWORD')
+# EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
+# EMAIL_HOST = os.getenv('EMAIL_HOST')
+# EMAIL_PORT = os.getenv('EMAIL_PORT')
+# EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS')
+# EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+# DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
+# EMAIL_HOST_PASSWORD =  os.getenv('EMAIL_HOST_PASSWORD')
 
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
@@ -231,3 +239,31 @@ CKEDITOR_5_CONFIGS = {
 }
 
 
+# Authentication
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend", 
+]
+
+SITE_ID = 1 
+
+# ACCOUNT_EMAIL_VERIFICATION = "mandatory"  
+# ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = True
+
+LOGIN_REDIRECT_URL = "/"
+
+ACCOUNT_SIGNUP_FIELDS = ['username*', 'email*', 'password1*', 'password2*']
+
+
+ACCOUNT_LOGIN_METHODS = {'email'}
+
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': '123',
+            'secret': '456',
+            'key': ''
+        }
+    }
+}

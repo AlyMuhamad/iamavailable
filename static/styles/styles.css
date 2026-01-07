@@ -141,6 +141,20 @@ option:not(:first-of-type) {
   font-family: 'Baloo Bhaijaan 2', sans-serif !important;
 }
 
+#div_id_username,
+#div_id_email,
+#div_id_password1,
+#div_id_password2,
+#div_id_login,
+#div_id_password {
+  margin-bottom: 1.4rem;
+}
+
+#id_password_helptext a {
+  text-decoration: none;
+  margin-top: 0.8rem;
+}
+
 @media (max-width: 84.375em) {
 }
 

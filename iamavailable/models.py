@@ -145,3 +145,13 @@ class Notification(models.Model):
     @property
     def timesince(self):
         return timesince.timesince(self.created)
+
+
+class Faq(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+    created = models.DateTimeField(auto_now_add=True)
+    question = models.CharField()
+    answer = models.TextField()
+    
+    def __str__(self):
+        return self.question

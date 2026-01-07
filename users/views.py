@@ -8,8 +8,31 @@ from django.contrib import messages
 from .forms import CustomUserCreationForm, ProfileForm
 from companies.models import Company, Room, Message
 from iamavailable.models import Job, Saved, Application, Notification
+from allauth.account.views import SignupView
+from allauth.account import app_settings
 
 # Create your views here.
+class CustomSignupView(SignupView):    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context ['welcome'] = 'Hello to my app'
+        return context
+    
+    def form_valid(self, form):
+        messages.success(self.request, 'User account was created')
+        response = super().form_valid(form)
+        
+        return response
+        
+    
+
+
+
+
+
+
+
+
 def registerUser(request):
     if request.user.is_authenticated:
         return redirect('home')

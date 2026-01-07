@@ -16,28 +16,28 @@
             Here you can find the most asked questions. If you have any question
             other than these, Please feel free to reach out
           </p>
-          <div>
-            <div>
-              <p class="mb-1 fw-bold">What is IAmAvailable?</p>
-              <p>
-                IAmAvailable is a job board for all talents all over the world,
-                it publishes jobs with the best perks to attract high potential
-                individuals.
-              </p>
+          <div x-data="{openedIndexes: []}">
+            {% for faq in faqs %}
+            <div class="card mb-2">
+              <div
+                class="card-header"
+                @click="openedIndexes = toggleIndexes(openedIndexes, {{forloop.counter}})"
+              >
+                <div class="fw-bold p-1 d-flex gap-2" style="cursor: pointer">
+                  <span
+                    x-text="openedIndexes.includes({{forloop.counter}}) ? '&#11167;' : '&#11166;' "
+                  ></span>
+                  <p class="mb-0">{{faq.question}}</p>
+                </div>
+              </div>
+              <div
+                class="card-body"
+                x-show="openedIndexes.includes({{forloop.counter}})"
+              >
+                <p class="mb-0">{{faq.answer}}</p>
+              </div>
             </div>
-            <div>
-              <p class="mb-1 fw-bold">Is IAmAvailable free to use?</p>
-              <p>
-                at the moment, IAmAvailable is free for both individuals and
-                companies. this may change for companies in the future.
-              </p>
-            </div>
-            <div>
-              <p class="mb-1 fw-bold">
-                How many jobs I can I apply to on IAmAvailable?
-              </p>
-              <p>You can apply for as many jobs as you want.</p>
-            </div>
+            {% endfor %}
           </div>
         </div>
       </div>
@@ -45,3 +45,15 @@
     {% endblock %}
   </body>
 </html>
+
+{% block js %}
+<script>
+  function toggleIndexes(openedIndexes, index) {
+    if (!openedIndexes.includes(index)) {
+      return [...openedIndexes, index];
+    } else {
+      return openedIndexes.filter(i => i != index);
+    }
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends '_base.html' %} {% load crispy_forms_tags %} {% load i18n %} {% load
+allauth account %} {% load static allauth i18n %}
+
+<html>
+  <head>
+    {% block title %}
+    <title>Email Addresses - IAmAvailable</title>
+    {% endblock %}
+  </head>
+  <body>
+    {% block content %}
+    <div class="container" style="min-height: 60vh">
+      <div class="d-flex align-items-center flex-column">
+        <p class="fs-2 fw-bold mt-4 mb-0">Email Addresses</p>
+      </div>
+      <p>The following email addresses are associated with your account</p>
+      <form method="POST" action="/accounts/email/" class="email list">
+        {% csrf_token %} {% for radio in emailaddress_radios %}
+        <div class="d-flex align-items-center justify-content-between mb-3">
+          <div class="d-flex gap-2 align-items-center">
+            <input
+              checked="{{radio.checked}}"
+              name="email"
+              id="{{radio.id}}"
+              value="{{radio.emailaddress.email}}"
+              type="radio"
+            />
+            <label for="{{radio.id}}">{{ radio.emailaddress.email }}</label>
+            {% if radio.emailaddress.verified %}
+            <strong
+              class="success email verified bg-success text-white p-1 rounded"
+            >
+              Verified
+            </strong>
+            {% else %}
+            <strong
+              class="warning email unverified bg-danger text-white p-1 rounded"
+            >
+              Unverified
+            </strong>
+            {% endif %} {% if radio.emailaddress.primary %}
+            <strong class="email primary bg-primary text-white p-1 rounded">
+              Primary
+            </strong>
+            {% endif %}
+          </div>
+          <div class="d-flex gap-2">
+            <button
+              name="action_primary"
+              type="submit"
+              class="bg-transparent p-1 rounded"
+            >
+              Make Primary
+            </button>
+            <button
+              name="action_send"
+              type="submit"
+              class="secondary bg-transparent p-1 rounded"
+            >
+              Re-send Verification
+            </button>
+            <button
+              name="action_remove"
+              type="submit"
+              class="danger delete bg-transparent p-1 rounded"
+            >
+              Remove
+            </button>
+          </div>
+        </div>
+        {% endfor %}
+      </form>
+      <p class="mb-2 fs-5 mt-4 fw-bold">Add Email Address</p>
+      <form method="post" action="/accounts/email/">
+        {% csrf_token %}
+        <div class="d-flex flex-column mb-2">
+          <label for="id_email">Email address</label>
+          <input
+            type="email"
+            name="email"
+            autocomplete="email"
+            placeholder="Email address"
+            maxlength="320"
+            required
+            id="id_email"
+            class="p-2 border-0 rounded mb-2"
+          />
+        </div>
+        <button
+          name="action_add"
+          type="submit"
+          class="text-white bg-dark p-2 rounded mb-4"
+        >
+          Add Email
+        </button>
+      </form>
+      <script src="/static/account/js/account.js"></script>
+      <script src="/static/account/js/onload.js"></script>
+      <script
+        data-allauth-onload="allauth.account.forms.manageEmailForm"
+        type="application/json"
+      >
+        {
+          "i18n": {
+            "confirmDelete": "Do you really want to remove the selected email address?"
+          }
+        }
+      </script>
+    </div>
+    {% endblock %}
+  </body>
+</html>

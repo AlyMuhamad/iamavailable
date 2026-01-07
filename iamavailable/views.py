@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.http import JsonResponse
 from django.db.models import Q
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from .models import Job, Tag, Saved, Application, Subscription, Notification
+from .models import Job, Tag, Saved, Application, Subscription, Notification, Faq
 from companies.models import Company
 from .forms import ApplicationForm, ContactForm
 from datetime import datetime, timedelta
@@ -177,7 +177,12 @@ def terms(request):
     return render(request, 'iamavailable/terms.html')
 
 def faq(request):
-    return render(request, 'iamavailable/faq.html')
+    faqs = Faq.objects.all()
+    context = {
+        'faqs': faqs
+    }
+    
+    return render(request, 'iamavailable/faq.html', context)
 
 def contact(request):
     

@@ -29,13 +29,18 @@
         >Edit personal information</a
       >
       <a
-        href=" {% url 'logout' %}"
+        href="{% url 'account_email' %}"
+        class="text-decoration-none p-2 fw-bold text-dark"
+        >Email addresses</a
+      >
+      <a
+        href=" {% url 'account_logout' %}"
         class="text-decoration-none p-2 rounded d-block fw-bold"
       >
         Logout
       </a>
       <a
-        href=" {% url 'logout' %}"
+        href=" {% url 'account_logout' %}"
         class="text-decoration-none p-2 rounded w-100 d-block fw-bold text-danger"
       >
         Delete my account
